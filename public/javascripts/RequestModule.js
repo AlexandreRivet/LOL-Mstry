@@ -4,6 +4,7 @@ var RequestModule = function()
 	this.levels = [];
 	
 	this._numberRequestsDone = 0;
+	this._queueCleaned = false;
 };
 
 RequestModule.prototype.addToQueue = function(req)
@@ -17,23 +18,23 @@ RequestModule.prototype.addToQueue = function(req)
 };
 
 RequestModule.prototype.checkForNewLevel = function(level)
-{
-	// Level already present in tab
-	var indexOfLevel = this.levels.indexOf(level);
-	if (indexOfLevel != -1) {
-		this.levels[indexOfLevel].number++;
-		return;	
-	}
-	
+{	
 	// Splice or push in the tab
 	var levelObject = { value : level, number : 1};
 	var alreadyPushed = false;
 	for (var i = 0, end = this.levels.length; i < end; ++i)
 	{
-		if (level < this.levels[i])
+		if (level == this.levels[i].value)
+		{
+			this.levels[i].number++;
+			alreadyPushed = true;
+			return;		
+		}
+		else if (level < this.levels[i].value)
 		{
 			this.levels.splice(i, 0, levelObject);
 			alreadyPushed = true;
+			break;
 		}			
 	}
 	
@@ -44,20 +45,34 @@ RequestModule.prototype.checkForNewLevel = function(level)
 
 RequestModule.prototype.launch = function()
 {
+	this._queueCleaned = false;
+	
+	this.process();
+};
+
+RequestModule.prototype.process = function()
+{
 	var self = this;
-	var initialLevel = this.levels[0];
+	var initialLevel = this.levels[0].value;
+	
+	console.log('Start on level ' + initialLevel);
+	
 	var initialRequests = this.requests[initialLevel];
 	for (var i = 0, end = initialRequests.length; i < end; ++i)
 	{
 		initialRequests[i].execute( (function() { self.requestAchieved(); }), (function() { self.requestFailed(); }));
-	}
+	}	
 };
 
 RequestModule.prototype.requestFailed = function()
 {
-	console.warn('Requests failed on level ' + this.levels[0]);
+	if (this._queueCleaned)
+		return;
+	
+	console.warn('Requests failed on level ' + this.levels[0].value);
 	console.warn('Queue cleaned');
 	
+	this._queueCleaned = true;
 	this.requests = {};
 	this.levels = [];
 	this._numberRequestsDone = 0;
@@ -71,27 +86,27 @@ RequestModule.prototype.requestAchieved = function()
 };
 
 RequestModule.prototype.checkForNextLevel = function()
-{
-	// End of the process
-	if (this.levels.length == 0) {
-		
-		this.requests = {};
-		this.levels = [];
-		this._numberRequestsDone = 0;
-		
-		return;
-	}
-	
+{	
 	// We have finished all requests for one level
 	if (this._numberRequestsDone == this.levels[0].number)
-	{
+	{		
 		this._numberRequestsDone = 0;
 		this.levels.splice(0, 1);
 		
 		if (this.levels.length != 0)
 		{
-			this.launch();
+			this.process();
 		}
+	}
+	
+		// End of the process
+	if (this.levels.length == 0) {
+		
+		this._queueCleaned = true;
+		
+		this.requests = {};
+		this.levels = [];
+		this._numberRequestsDone = 0;
 	}
 };
 
@@ -150,10 +165,11 @@ RequestObject.prototype.execute = function(callbackOnSuccess, callbackOnFail)
 		
 		if( ( (xhr.status != 200) && (xhr.status != 0) ) || (!checkVariable(xhr.response) ) )
 		{
-			if(checkVariable(params.fail))
+			if( checkVariable(params.fail) )
 				params.fail(xhr.response);
 			
-			
+			if ( checkVariable(callbackOnFail) )
+				callbackOnFail();
 			
 			return;
 		}
@@ -171,7 +187,7 @@ RequestObject.prototype.execute = function(callbackOnSuccess, callbackOnFail)
 			params.done(finalResponse);				
 		}
 		
-		if (checkVariable(callbackOnSuccess)
+		if ( checkVariable(callbackOnSuccess) )
 			callbackOnSuccess();
 		
 	};
