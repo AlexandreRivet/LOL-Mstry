@@ -5,12 +5,12 @@ var summonerRequest = new RequestObject({
 	done: function (response) {
 		
 		SUMMONER_INFO = response;
-		
-		debugger;
-		
+
 	},
 	fail: function (response) {
+		
 		console.log(response);
+		
 	},
 	data:  {
 		'region' : REGION,
