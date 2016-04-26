@@ -29,8 +29,6 @@ router.get('/data/region/:region/summoner/:summonerName', function(req, res, nex
         "region": req.params.region
     };
 
-    console.log(params);
-
     api.getSummonersByNames(params).then(function(data){
         var out = data[Object.keys(data)[0]];
         res.status(200).send(out);

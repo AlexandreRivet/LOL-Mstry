@@ -151,6 +151,9 @@ RequestObject.prototype.execute = function (callbackOnSuccess, callbackOnFail) {
 	};
 
 	xhr.onreadystatechange = function (e) {
+		
+		console.log(xhr.readyState);
+		
 		if ((allreadyLoaded) || (xhr.readyState != 4))
 			return;
 
