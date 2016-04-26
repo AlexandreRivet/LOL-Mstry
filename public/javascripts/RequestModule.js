@@ -115,7 +115,7 @@ var RequestObject = function (params) {
 	this.status = 0; // 0 : pas lancé, 1 : réussi,  2 : fail
 };
 
-// callbackOnSuccess, callbackOnFail => override done for RequestModule
+// callbackOnSuccess, callbackOnFail => override done and fail for RequestModule
 RequestObject.prototype.execute = function (callbackOnSuccess, callbackOnFail) {
 	var params = this.params;
 
