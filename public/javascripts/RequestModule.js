@@ -188,12 +188,31 @@ RequestObject.prototype.execute = function (callbackOnSuccess, callbackOnFail) {
 
 	};
 
-	xhr.open(sendType, params.url, true);
-	xhr.responseType = responseType;
 
+	
+	var data = null;
 	if (!checkVariable(params.data))
-		params.data = null;
-
-	xhr.send(params.data);
+		data = null;
+	
+	else if (typeof params.data == "object") {
+		
+		var parameters = params.data;
+		data = "?";
+		for (var key in params.data) {
+			
+			data += key;
+			data += '=';
+			data += encodeURIComponent( params.data[key] );
+			data += '&';
+			
+		}
+	
+		data = data.substr(0, data.length - 1);
+	}
+	
+	xhr.open(sendType, params.url + ( (sendType == "GET") ? data : "" ) , true);
+	xhr.responseType = responseType;
+	
+	xhr.send( ( (sendType == "GET") ? null : data ) );
 
 };

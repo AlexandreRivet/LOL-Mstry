@@ -45,8 +45,8 @@ var rankedRequest = new RequestObject({
 
 function loadSummoner(region, summonerName)
 {
-	summonerRequest.data.region = region || REGION;
-	summonerRequest.data.summonerName = summonerName || SUMMONER_NAME;
+	summonerRequest.params.data.region = region || REGION;
+	summonerRequest.params.data.summonerName = summonerName || SUMMONER_NAME;
 	
 	RM.addToQueue(summonerRequest, 1);
 	RM.addToQueue(championMasteryRequest, 2);

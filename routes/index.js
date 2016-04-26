@@ -31,7 +31,6 @@ router.get('/data/summoner', function(req, res, next) {
 
     api.getSummonersByNames(params).then(function(data){
         var out = data[Object.keys(data)[0]];
-        console.log(out);
         res.status(200).send(out);
     });
 
