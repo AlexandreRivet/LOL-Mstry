@@ -15,25 +15,27 @@ router.get('/', function(req, res, next) {
 });
 
 /*
- *  Method: POST
- *  URL: /data/summoner/name
+ *  Method: GET
+ *  URL: /data/region/{region}/summoner/{summonerName}
  *  Params:
  *      ->  summonerName  | Name of the summoner
  *      ->  region        | Region of the summoner
  *  Desc.: Returns basic details about a summoner based on its name and its region
  */
-router.post('/data/summoner/name', function(req, res, next) {
+router.get('/data/region/:region/summoner/:summonerName', function(req, res, next) {
 
     var params = {
-        "names": req.body.summonerName,
-        "region": req.body.region
+        "names": req.params.summonerName,
+        "region": req.params.region
     };
+
+    console.log(params);
 
     api.getSummonersByNames(params).then(function(data){
         var out = data[Object.keys(data)[0]];
-        console.log(out);
         res.status(200).send(out);
     });
+
 });
 
 module.exports = router;
