@@ -57,4 +57,27 @@ router.get('/data/champion-mastery/all', function(req, res, next) {
         res.status(200).send(out);
     });
 });
+
+/*
+ *  Method: GET
+ *  URL: /data/ranked-stats
+ *  Params:
+ *      ->  summonerId    | ID of the summoner
+ *      ->  region        | Region of the summoner
+ *  Sample request: /data/ranked-stats?summonerId=36522458&region=EUW
+ *  Desc.: Returns all ranked stats about a summoner based on his id and his region
+ */
+router.get('/data/ranked-stats', function(req, res, next) {
+
+    var params = {
+        "id": req.query.summonerId,
+        "region": req.query.region
+    };
+
+    api.getRankedStatsBySummonerId(params).then(function(data){
+        var out = data;
+        res.status(200).send(out);
+    });
+});
+
 module.exports = router;
