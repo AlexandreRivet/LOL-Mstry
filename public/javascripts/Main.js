@@ -1,9 +1,16 @@
 $(document).init(function () {
 
-	$('ul.tabs').tabs();
-	
-	RM = new RequestModule();
-	
-	loadSummoner("EUW", "No TT");
+});
+
+
+$('#searchForSummoner').click(function () {
+
+	var region = $('.tabs .tab .active').html();
+	var summonerName = $('#summonerName_input').val();
+
+	if (summonerName == "" || region == "")
+		return;
+
+	loadSummoner(region, summonerName);
 
 });

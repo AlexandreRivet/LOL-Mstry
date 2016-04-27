@@ -5,6 +5,7 @@ var summonerRequest = new RequestObject({
 	done: function (response) {
 
 		SUMMONER_INFO = response;
+		console.log(SUMMONER_INFO);
 
 		// Update info from the first request
 		championMasteryRequest.params.data.region = summonerRequest.params.data.region;
@@ -30,10 +31,15 @@ var championMasteryRequest = new RequestObject({
 	dataType: "json",
 	url: "/data/champion-mastery/all",
 	done: function (response) {
-		console.log(response);
+
+		SUMMONER_MASTERIES = response;
+		console.log(SUMMONER_MASTERIES);
+
 	},
 	fail: function (response) {
+
 		console.log(response);
+
 	},
 	data: {
 		'region': REGION,
@@ -44,12 +50,17 @@ var championMasteryRequest = new RequestObject({
 var rankedRequest = new RequestObject({
 	type: "GET",
 	dataType: "json",
-	url: "route_url",
+	url: "/data/ranked-stats",
 	done: function (response) {
-		console.log(response);
+
+		SUMMONER_RANKED = response;
+		console.log(SUMMONER_RANKED);
+
 	},
 	fail: function (response) {
+
 		console.log(response);
+
 	},
 	data: {
 		'region': REGION,
@@ -58,12 +69,15 @@ var rankedRequest = new RequestObject({
 });
 
 function loadSummoner(region, summonerName) {
+
 	summonerRequest.params.data.region = region || REGION;
 	summonerRequest.params.data.summonerName = summonerName || SUMMONER_NAME;
 
-	RM.addToQueue(summonerRequest, 1);
-	RM.addToQueue(championMasteryRequest, 2);
-	RM.addToQueue(rankedRequest, 2);
-	RM.launch();
+	var rm = new RequestModule();
+
+	rm.addToQueue(summonerRequest, 1);
+	rm.addToQueue(championMasteryRequest, 2);
+	rm.addToQueue(rankedRequest, 2);
+	rm.launch();
 
 }

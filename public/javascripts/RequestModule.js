@@ -85,15 +85,6 @@ RequestModule.prototype.requestAchieved = function () {
 };
 
 RequestModule.prototype.checkForNextLevel = function () {
-	// We have finished all requests for one level
-	if (this._numberRequestsDone == this.levels[0].number) {
-		this._numberRequestsDone = 0;
-		this.levels.splice(0, 1);
-
-		if (this.levels.length != 0) {
-			this.process();
-		}
-	}
 
 	// End of the process
 	if (this.levels.length == 0) {
@@ -103,7 +94,16 @@ RequestModule.prototype.checkForNextLevel = function () {
 		this.requests = {};
 		this.levels = [];
 		this._numberRequestsDone = 0;
+	} else if (this.levels.length > 0 && this._numberRequestsDone == this.levels[0].number) {
+		this._numberRequestsDone = 0;
+		this.levels.splice(0, 1);
+
+		if (this.levels.length != 0) {
+			this.process();
+		}
+
 	}
+
 };
 
 
