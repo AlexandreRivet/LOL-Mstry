@@ -6,6 +6,7 @@ var express = require('express'),
     cons = require('consolidate');
 
 var routes = require('./routes');
+var dataRoutes = require('./routes/data.js');
 
 var port = process.env.PORT || 3000;
 
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/", routes);
+app.use("/data", dataRoutes);
 
 if(!module.parent) {
     app.listen(port);
