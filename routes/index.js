@@ -64,16 +64,14 @@ router.get('/data/champion-mastery/all', function(req, res, next) {
  *  Params:
  *      ->  summonerId    | ID of the summoner
  *      ->  region        | Region of the summoner
- *      ->  season        | [OPTIONAL] Season to analyze. If not, current season is chosen.
- *  Sample request: /data/ranked-stats?summonerId=36522458&region=EUW&season=SEASON2015
+ *  Sample request: /data/ranked-stats?summonerId=36522458&region=EUW
  *  Desc.: Returns all ranked stats about a summoner based on his id and his region
  */
 router.get('/data/ranked-stats', function(req, res, next) {
 
     var params = {
         "id": req.query.summonerId,
-        "region": req.query.region,
-        "season": req.query.season
+        "region": req.query.region
     };
 
     api.getRankedStatsBySummonerId(params).then(function(data){
