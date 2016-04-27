@@ -33,7 +33,6 @@ var championMasteryRequest = new RequestObject({
 	done: function (response) {
 
 		SUMMONER_MASTERIES = response;
-		console.log(SUMMONER_MASTERIES);
 
 	},
 	fail: function (response) {
@@ -54,7 +53,6 @@ var rankedRequest = new RequestObject({
 	done: function (response) {
 
 		SUMMONER_RANKED = response;
-		console.log(SUMMONER_RANKED);
 
 	},
 	fail: function (response) {

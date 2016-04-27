@@ -24,7 +24,7 @@
 	</ul>
 	<nav class="blue-grey darken-1">
 		<div class="nav-wrapper container">
-			<a href="/" class="brand-logo"><img src="/images/logo.png" class="container center" style="height:100px; width:auto;"></a>
+			<a href="/" class="brand-logo"><img src="/images/logo.png" class="container center" style="height:85px; width:auto;"></a>
 			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li>
@@ -55,6 +55,67 @@
 		</div>
 	</nav>
 
+	<main style="margin-top:30px;">
+
+		<div class="row">
+
+			<div class="container center">
+				<div class="card white section">
+					<div class="preloader-wrapper big active">
+						<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div>
+							<div class="gap-patch">
+								<div class="circle"></div>
+							</div>
+							<div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card white section">
+					<div class="preloader-wrapper big active">
+						<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div>
+							<div class="gap-patch">
+								<div class="circle"></div>
+							</div>
+							<div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="championMasteries" class="card white section">
+					<div id="championMasteries_loader" class="preloader-wrapper big active">
+						<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div>
+							<div class="gap-patch">
+								<div class="circle"></div>
+							</div>
+							<div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+					<ul id="championMasteries_container" class="collapsible" data-collapsible="expandable"></ul>
+				</div>
+			</div>
+
+
+		</div>
+
+	</main>
+
+	<footer></footer>
+
+	<script type="text/javascript " src="/javascripts/common/env.js "></script>
 	<script type="text/javascript ">
 		SUMMONER_INFO = {
 
@@ -66,8 +127,6 @@
 			'summonerLevel': '{{summonerLevel}}'
 
 		};
-
-		console.log(SUMMONER_INFO);
 	</script>
 
 	<script type="text/javascript " src="/javascripts/dist/jquery.min.js "></script>
@@ -75,7 +134,6 @@
 
 	<script type="text/javascript " src="/javascripts/common/tools.js "></script>
 	<script type="text/javascript " src="/javascripts/common/RequestModule.js "></script>
-	<script type="text/javascript " src="/javascripts/common/env.js "></script>
 	<script type="text/javascript " src="/javascripts/common/LOLRequests.js "></script>
 
 	<script type="text/javascript " src="/javascripts/summoner/main.js "></script>
