@@ -19,46 +19,6 @@ router.get('/', function(req, res, next) {
 
 /*
  *  Method: GET
- *  URL: /data/summoner
- *  Params:
- *      ->  summonerName  | Name of the summoner
- *      ->  region        | Region of the summoner
- *  Sample request: /data/summoner?summonerName=No%20TT&region=EUW
- *  Desc.: Returns basic details about a summoner based on its name and its region
- */
-router.get('/data/summoner', function(req, res, next) {
-    var summonerName = req.query.summonerName;
-    var region = req.query.region;
-
-    req.sanitizeQuery('summonerName').blacklist(" ");
-    req.checkQuery('summonerName', 'Length of summoner name must be between 3 and 16 characters').notEmpty().isLength(3, 16);
-
-    req.query.region = req.query.region.toUpperCase();
-    req.checkQuery('region', 'Region is invalid').notEmpty().isAlpha().isIn(all_regions);
-
-    var errors = req.validationErrors();
-    if (errors) {
-        res.status(400).send(util.inspect(errors));
-    } else {
-
-        var params = {
-            "names": summonerName,
-            "region": region
-        };
-
-        api.getSummonersByNames(params, function (err, data) {
-            if(err) {
-                res.status(err.error).send(err);
-            }
-
-            var out = data[Object.keys(data)[0]];
-            res.status(200).send(out);
-        });
-    }
-});
-
-/*
- *  Method: GET
  *  URL: /data/champion-mastery/all
  *  Params:
  *      ->  summonerId    | ID of the summoner
@@ -67,7 +27,7 @@ router.get('/data/summoner', function(req, res, next) {
  *  Desc.: Returns all champion masteries earned by a summoner based on his ID and his region
  */
 router.get('/data/champion-mastery/all', function(req, res, next) {
-    var params = {
+    /*var params = {
         "id": req.query.summonerId,
         "region": req.query.region
     };
@@ -75,7 +35,7 @@ router.get('/data/champion-mastery/all', function(req, res, next) {
     api.getChampionMastery(params).then(function(data){
         var out = data;
         res.status(200).send(out);
-    });
+    });*/
 });
 
 /*
@@ -98,6 +58,49 @@ router.get('/data/ranked-stats', function(req, res, next) {
         var out = data;
         res.status(200).send(out);
     });
+});
+
+
+/*
+ *  Method: GET
+ *  URL: /summoner/{region}/{summonerName}
+ *  Params:
+ *      ->  summonerName  | Name of the summoner
+ *      ->  region        | Region of the summoner
+ *  Sample request: /data/summoner?summonerName=No%20TT&region=EUW
+ *  Desc.: Returns basic details about a summoner based on its name and its region
+ */
+router.get('/summoner/:region/:summonerName', function(req, res, next) {
+    var summonerName = req.params.summonerName;
+    var region = req.params.region;
+
+    req.sanitizeParams('summonerName').blacklist(" ");
+    req.checkParams('summonerName', 'Length of summoner name must be between 3 and 16 characters').notEmpty().isLength(3, 16);
+
+    req.params.region = req.params.region.toUpperCase();
+    req.checkParams('region', 'Region is invalid').notEmpty().isAlpha().isIn(all_regions);
+
+    var errors = req.validationErrors();
+    if (errors) {
+        res.status(400).send(util.inspect(errors));
+    } else {
+
+        var params = {
+            "names": summonerName,
+            "region": region
+        };
+
+        api.getSummonersByNames(params, function (err, data) {
+            if(err) {
+                res.status(err.error).send(err);
+            }
+
+            var out = data[Object.keys(data)[0]];
+            out.region = region;
+
+            res.render('summoner', out);
+        });
+    }
 });
 
 module.exports = router;
