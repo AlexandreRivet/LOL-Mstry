@@ -1,5 +1,6 @@
 var express =   require('express'),
-    riot    =   require('lol-riot-api-module');
+    riot    =   require('lol-riot-api-module'),
+    util    =   require('util');
 
 var test = require("../data-test.json");
 
@@ -7,6 +8,8 @@ var api = new riot({
     key: test.API_KEY,
     region: test.region
 });
+
+var all_regions = ["BR", "EUNE", "EUW", "JP", "KR", "LAN", "LAS", "NA", "OCE", "RU", "TR"];
 
 var router = express.Router();
 
@@ -24,16 +27,34 @@ router.get('/', function(req, res, next) {
  *  Desc.: Returns basic details about a summoner based on its name and its region
  */
 router.get('/data/summoner', function(req, res, next) {
+    var summonerName = req.query.summonerName;
+    var region = req.query.region;
 
-    var params = {
-        "names": req.query.summonerName,
-        "region": req.query.region
-    };
+    req.sanitizeQuery('summonerName').blacklist(" ");
+    req.checkQuery('summonerName', 'Length of summoner name must be between 3 and 16 characters').notEmpty().isLength(3, 16);
 
-    api.getSummonersByNames(params).then(function(data){
-        var out = data[Object.keys(data)[0]];
-        res.status(200).send(out);
-    });
+    req.query.region = req.query.region.toUpperCase();
+    req.checkQuery('region', 'Region is invalid').notEmpty().isAlpha().isIn(all_regions);
+
+    var errors = req.validationErrors();
+    if (errors) {
+        res.status(400).send(util.inspect(errors));
+    } else {
+
+        var params = {
+            "names": summonerName,
+            "region": region
+        };
+
+        api.getSummonersByNames(params, function (err, data) {
+            if(err) {
+                res.status(err.error).send(err);
+            }
+
+            var out = data[Object.keys(data)[0]];
+            res.status(200).send(out);
+        });
+    }
 });
 
 /*
@@ -46,7 +67,6 @@ router.get('/data/summoner', function(req, res, next) {
  *  Desc.: Returns all champion masteries earned by a summoner based on his ID and his region
  */
 router.get('/data/champion-mastery/all', function(req, res, next) {
-
     var params = {
         "id": req.query.summonerId,
         "region": req.query.region

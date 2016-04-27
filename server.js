@@ -1,6 +1,7 @@
 var express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser'),
+    expressValidator = require('express-validator'),
     cookieParser = require('cookie-parser'),
     cons = require('consolidate');
 
@@ -16,6 +17,7 @@ app.set('views', __dirname + '/views');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
+app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
