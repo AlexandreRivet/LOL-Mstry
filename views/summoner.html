@@ -4,22 +4,81 @@
 <head>
 	<title>LoL - Mstry</title>
 
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="/stylesheets/materialize.min.css">
 	<link rel="stylesheet" href="/stylesheets/index-style.css">
 	<link rel="icon" type="image/png" href="/images/logo.png" />
 </head>
 
 <body class="blue-grey darken-4">
-	{{region}}
-	<script type="text/javascript" src="/javascripts/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/dist/materialize.min.js"></script>
 
-	<script type="text/javascript" src="/javascripts/common/tools.js"></script>
-	<script type="text/javascript" src="/javascripts/common/RequestModule.js"></script>
-	<script type="text/javascript" src="/javascripts/common/env.js"></script>
-	<script type="text/javascript" src="/javascripts/common/LOLRequests.js"></script>
+	<ul id="server_dd_full" class="dropdown-content blue-grey-text text-darken-3">
+		<li><a href="#!">EUW</a></li>
+		<li><a href="#!">NA</a></li>
+		<li><a href="#!">KR</a></li>
+	</ul>
+	<ul id="server_dd_mobile" class="dropdown-content">
+		<li><a href="#!">EUW</a></li>
+		<li><a href="#!">NA</a></li>
+		<li><a href="#!">KR</a></li>
+	</ul>
+	<nav class="blue-grey darken-1">
+		<div class="nav-wrapper container">
+			<a href="/" class="brand-logo"><img src="/images/logo.png" class="container center" style="height:100px; width:auto;"></a>
+			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li>
+					<form>
+						<div class="input-field">
+							<input id="search" type="search" required placeholder="{{name}}">
+							<label for="search"><i class="material-icons">search</i></label>
+							<i class="material-icons">close</i>
+						</div>
+					</form>
+				</li>
+				<li><a class="dropdown-button" href="#!" data-activates="server_dd_full">Servers<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a href="#">About</a></li>
+			</ul>
+			<ul class="side-nav blue-grey lighten-4" id="mobile-demo">
+				<li>
+					<form>
+						<div class="input-field">
+							<input id="search" type="search" required placeholder="{{name}}">
+							<label for=" search "><i class="material-icons ">search</i></label>
+							<i class="material-icons ">close</i>
+						</div>
+					</form>
+				</li>
+				<li><a class="dropdown-button" href="#!" data-activates="server_dd_mobile">Servers<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a href="# ">About</a></li>
+			</ul>
+		</div>
+	</nav>
 
-	<script type="text/javascript" src="/javascripts/summoner/main.js"></script>
+	<script type="text/javascript ">
+		SUMMONER_INFO = {
+
+			'id': '{{id}}',
+			'region': '{{region}}',
+			'name': '{{name}}',
+			'profileIconId': '{{profileIconId}}',
+			'revisionDate': '{{revisionDate}}',
+			'summonerLevel': '{{summonerLevel}}'
+
+		};
+
+		console.log(SUMMONER_INFO);
+	</script>
+
+	<script type="text/javascript " src="/javascripts/dist/jquery.min.js "></script>
+	<script type="text/javascript " src="/javascripts/dist/materialize.min.js "></script>
+
+	<script type="text/javascript " src="/javascripts/common/tools.js "></script>
+	<script type="text/javascript " src="/javascripts/common/RequestModule.js "></script>
+	<script type="text/javascript " src="/javascripts/common/env.js "></script>
+	<script type="text/javascript " src="/javascripts/common/LOLRequests.js "></script>
+
+	<script type="text/javascript " src="/javascripts/summoner/main.js "></script>
 </body>
 
 </html
