@@ -18,7 +18,8 @@ body {
 }
 
 .tabs .tab a,
-.tabs .tab a:hover {
+.tabs .tab a:hover,
+.tabs .tab.disabled a {
 	color: #546e7a;
 }
 
