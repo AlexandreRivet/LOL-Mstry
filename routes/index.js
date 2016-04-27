@@ -13,53 +13,14 @@ var all_regions = ["BR", "EUNE", "EUW", "JP", "KR", "LAN", "LAS", "NA", "OCE", "
 
 var router = express.Router();
 
+/*
+ *  Method: GET
+ *  URL: /
+ *  Desc.: Root route (Just wanted to write something like this. Funny, isn't it ?)
+ */
 router.get('/', function(req, res, next) {
     res.render("index", {});
 });
-
-/*
- *  Method: GET
- *  URL: /data/champion-mastery/all
- *  Params:
- *      ->  summonerId    | ID of the summoner
- *      ->  region        | Region of the summoner
- *  Sample request: /data/champion-mastery/all?summonerId=36522458&region=EUW
- *  Desc.: Returns all champion masteries earned by a summoner based on his ID and his region
- */
-router.get('/data/champion-mastery/all', function(req, res, next) {
-    /*var params = {
-        "id": req.query.summonerId,
-        "region": req.query.region
-    };
-
-    api.getChampionMastery(params).then(function(data){
-        var out = data;
-        res.status(200).send(out);
-    });*/
-});
-
-/*
- *  Method: GET
- *  URL: /data/ranked-stats
- *  Params:
- *      ->  summonerId    | ID of the summoner
- *      ->  region        | Region of the summoner
- *  Sample request: /data/ranked-stats?summonerId=36522458&region=EUW
- *  Desc.: Returns all ranked stats about a summoner based on his id and his region
- */
-router.get('/data/ranked-stats', function(req, res, next) {
-
-    var params = {
-        "id": req.query.summonerId,
-        "region": req.query.region
-    };
-
-    api.getRankedStatsBySummonerId(params).then(function(data){
-        var out = data;
-        res.status(200).send(out);
-    });
-});
-
 
 /*
  *  Method: GET
@@ -67,8 +28,8 @@ router.get('/data/ranked-stats', function(req, res, next) {
  *  Params:
  *      ->  summonerName  | Name of the summoner
  *      ->  region        | Region of the summoner
- *  Sample request: /data/summoner?summonerName=No%20TT&region=EUW
- *  Desc.: Returns basic details about a summoner based on its name and its region
+ *  Sample request: /summoner/euw/No%20TT
+ *  Desc.: Render template and basic details about a summoner based on its name and its region
  */
 router.get('/summoner/:region/:summonerName', function(req, res, next) {
     var summonerName = req.params.summonerName;
@@ -93,6 +54,7 @@ router.get('/summoner/:region/:summonerName', function(req, res, next) {
         api.getSummonersByNames(params, function (err, data) {
             if(err) {
                 res.status(err.error).send(err);
+                return;
             }
 
             var out = data[Object.keys(data)[0]];
