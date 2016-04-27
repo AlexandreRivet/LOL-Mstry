@@ -3,8 +3,10 @@
 
 <head>
 	<title>LoL - Mstry</title>
+
 	<link rel="stylesheet" href="/stylesheets/materialize.min.css">
 	<link rel="stylesheet" href="/stylesheets/index-style.css">
+	<link rel="icon" type="image/png" href="/images/logo.png" />
 </head>
 
 <body class="blue-grey darken-4">
@@ -14,49 +16,47 @@
 		<div class="row">
 
 			<div class="col s12 center" style="margin-bottom:20px;">
-				<div class="col s4"><img src="http://orig15.deviantart.net/b580/f/2014/196/7/d/icon_by_aaa_nymphea-d7qupvt.png" style="width:100%; height:auto;"></div>
-				<div class="col s8">
-					<h2 class="white-text">Mstry</h2></div>
+				<div class="col s12 m12 l12">
+					<img src="/images/logo.png" class="container center" style="max-width:300px; height:auto;">
+				</div>
+				<div class="card col s12 white center">
+					<div class="input-field col s12">
+						<input placeholder="Summoner Name" id="summonerName_input" type="text" class="validate">
+					</div>
+					<div class="col s12">
+						<ul class="tabs">
+							<li class="tab col s3 "><a href="#test1">BR</a></li>
+							<li class="tab col s3"><a href="#test2">EUNE</a></li>
+							<li class="tab col s3"><a class="active" href="#test3">EUW</a></li>
+							<li class="tab col s3"><a href="#test4">LAN</a></li>
+							<li class="tab col s3"><a href="#test4">LAS</a></li>
+							<li class="tab col s3"><a href="#test4">NA</a></li>
+							<li class="tab col s3"><a href="#test4">OCE</a></li>
+							<li class="tab col s3"><a href="#test4">RU</a></li>
+							<li class="tab col s3"><a href="#test4">TR</a></li>
+						</ul>
+					</div>
+					<div class="col s12" style="margin-top:10px; margin-bottom:10px;">
+						<a id="searchForSummoner" class="waves-effect waves-light btn blue-grey darken-1">GO</a>
+					</div>
+				</div>
 
-			</div>
-			<div class="card col s12 white center">
-				<div class="input-field col s12">
-					<input placeholder="Summoner Name" id="summonerName_input" type="text" class="validate">
-				</div>
-				<div class="col s12">
-					<ul class="tabs">
-						<li class="tab col s3 "><a href="#test1">BR</a></li>
-						<li class="tab col s3"><a href="#test2">EUNE</a></li>
-						<li class="tab col s3"><a class="active" href="#test3">EUW</a></li>
-						<li class="tab col s3"><a href="#test4">LAN</a></li>
-						<li class="tab col s3"><a href="#test4">LAS</a></li>
-						<li class="tab col s3"><a href="#test4">NA</a></li>
-						<li class="tab col s3"><a href="#test4">OCE</a></li>
-						<li class="tab col s3"><a href="#test4">RU</a></li>
-						<li class="tab col s3"><a href="#test4">TR</a></li>
-					</ul>
-				</div>
-				<div class="col s12" style="margin-top:10px; margin-bottom:10px;">
-					<a id="searchForSummoner" class="waves-effect waves-light btn blue-grey darken-1">GO</a>
-				</div>
 			</div>
 
 		</div>
 
-	</div>
 
 
 
+		<script type="text/javascript" src="/javascripts/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="/javascripts/dist/materialize.min.js"></script>
 
-	<script type="text/javascript" src="/javascripts/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/dist/materialize.min.js"></script>
+		<script type="text/javascript" src="/javascripts/tools.js"></script>
+		<script type="text/javascript" src="/javascripts/RequestModule.js"></script>
 
-	<script type="text/javascript" src="/javascripts/tools.js"></script>
-	<script type="text/javascript" src="/javascripts/RequestModule.js"></script>
-
-	<script type="text/javascript" src="/javascripts/env.js"></script>
-	<script type="text/javascript" src="/javascripts/LOLRequests.js"></script>
-	<script type="text/javascript" src="/javascripts/main.js"></script>
+		<script type="text/javascript" src="/javascripts/env.js"></script>
+		<script type="text/javascript" src="/javascripts/LOLRequests.js"></script>
+		<script type="text/javascript" src="/javascripts/main.js"></script>
 </body>
 
-</html>
+</html
