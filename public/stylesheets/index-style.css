@@ -18,9 +18,14 @@ body {
 }
 
 .tabs .tab a,
-.tabs .tab a:hover,
-.tabs .tab.disabled a {
+.tabs .tab a:hover {
 	color: #546e7a;
+}
+
+.tabs .tab.disabled a {
+	
+	color: #cfd8dc;
+	
 }
 
 .tabs .indicator {
@@ -39,4 +44,14 @@ input[type=text]:focus:not([readonly]) {
 .dropdown-content li>a,
 .dropdown-content li>span {
 	color: #546e7a;
+}
+
+#summonerIcon_col {
+	margin-bottom: 5px;
+}
+
+@media only screen and (min-width: 993px) {
+	#summonerIcon_col {
+		margin-bottom: 0px;
+	}
 }

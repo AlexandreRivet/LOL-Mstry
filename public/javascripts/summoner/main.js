@@ -1,5 +1,6 @@
 var LAST_LEVEL = -1;
 var MAX_LEVEL = 5;
+var FIRST_ACTIVE = false;
 
 $(document).init(function () {
 
@@ -13,9 +14,34 @@ $(document).init(function () {
 	rankedRequest.params.data.summonerId = SUMMONER_INFO.id;
 
 	// launch requests
-	championMasteryRequest.execute(updateMasteries);
+	championMasteryRequest.execute(updateInterface);
 	rankedRequest.execute();
 });
+
+function updateInterface()
+{
+	updateSummoner();
+	updateMasteries();
+	
+}
+
+function updateSummoner() {
+
+	$('#summonerInfo_loader').hide();
+	
+	// Sum of all championLevel
+	var masteriesPoint = 0;
+	for (var i = 0; i < SUMMONER_MASTERIES.length; ++i) {
+
+		masteriesPoint += SUMMONER_MASTERIES[i].championLevel;
+
+	}
+	
+	$('#summonerInfo_sumChampionLevel').html("Total: " + masteriesPoint);
+	
+	$('#summonerInfo_container').show();
+	
+}
 
 function updateMasteries() {
 
@@ -27,6 +53,7 @@ function updateMasteries() {
 
 	}
 	
+	$('#championMasteries_container').show();
     $('ul.tabs').tabs();
 	$('.collapsible').collapsible({
       		accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
@@ -68,8 +95,19 @@ function addChampionMastery(champion) {
 		LAST_LEVEL = currentLevel;
 		
 		// We add new level
-		$('#championMasteries_tab').append('<li class="tab col s3"><a href="#cmTab_' + currentLevel + '">Mastery ' + currentLevel + '</a></li>');
-		$('#championMasteries_container').append('<div id="cmTab_' + currentLevel + '" class="col s12"><ul id="cmExpendable' + currentLevel + '" class="collapsible" data-collapsible="expandable"></ul></div>');
+		if (!FIRST_ACTIVE) {
+		
+			$('#championMasteries_tab').append('<li class="tab col s3"><a href="#cmTab_' + currentLevel + '" class="active">Mastery ' + currentLevel + '</a></li>');
+			FIRST_ACTIVE = true;
+			
+		} else {
+			
+			$('#championMasteries_tab').append('<li class="tab col s3"><a href="#cmTab_' + currentLevel + '">Mastery ' + currentLevel + '</a></li>');
+			
+		}
+		
+		
+		$('#championMasteries_container').append('<div id="cmTab_' + currentLevel + '" class="col s12"><ul id="cmExpendable' + currentLevel + '" class="collapsible col s10 offset-s1" data-collapsible="expandable"></ul></div>');
 		
 	}
 	
@@ -81,6 +119,5 @@ function addChampionMastery(champion) {
 	str += '</li>';
 
 	$('#cmExpendable' + currentLevel).append(str);
-	$('#championMasteries_container').show();
 
 }

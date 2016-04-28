@@ -72,8 +72,8 @@
 		<div class="row">
 
 			<div class="container center">
-				<div class="card white section">
-					<div class="preloader-wrapper big active">
+				<div id="summonerInfo" class="card white section">
+					<div id="summonerInfo_loader" class="preloader-wrapper big active">
 						<div class="spinner-layer spinner-blue-only">
 							<div class="circle-clipper left">
 								<div class="circle"></div>
@@ -86,9 +86,31 @@
 							</div>
 						</div>
 					</div>
+					<div id="summonerInfo_container" class="row" style="margin-bottom:0px;">
+						<div class="col s10 offset-s1">
+							<div class="col s12 m5 l2" id="summonerIcon_col">
+								<div style="position:relative;width:120px;height:120px;left:50%;margin-left:-60px;">
+									<img src="/images/logo.png" style="position:relative;width:100%;height:100%;">
+									<div id="triangle_level" style="position:absolute;bottom:0px;right:0px;width:0px;height:0px;border-style:solid;border-width:0 0 40px 40px; border-color: transparent transparent #263238 transparent;"></div>
+									<span class="white-text" style="position:absolute;bottom:0px;right:5px;">{{summonerLevel}}</span>
+								</div>
+							</div>
+							<div class="col s12 m7 l5" style="margin-bottom:5px;">
+								<div class="col s12">
+									<h6>{{name}}</h6>
+								</div>
+								<div id="summonerInfo_sumChampionLevel" class="col s12 m12 l6"></div>
+								<div class="col s12 m12 l6">
+									{{revisionDate}}
+								</div>
+							
+							</div>
+							<div class="col s12 m12 l5 green">LOL</div>
+						</div>
+					</div>
 				</div>
-				<div class="card white section">
-					<div class="preloader-wrapper big active">
+				<div id="topChampionMasteries" class="card white section">
+					<div id="topChampionMasteries_loader" class="preloader-wrapper big active">
 						<div class="spinner-layer spinner-blue-only">
 							<div class="circle-clipper left">
 								<div class="circle"></div>
@@ -116,7 +138,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="championMasteries_container" class="row">
+					<div id="championMasteries_container" class="row" style="display:none;">
 						<div class="col s10 offset-s1">
 							<ul id="championMasteries_tab" class="tabs"></ul>
 						</div>
