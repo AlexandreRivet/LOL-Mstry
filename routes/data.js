@@ -51,7 +51,23 @@ router.get('/champion-mastery/all', function(req, res, next) {
             }
 
             var out = data;
-            res.status(200).send(out);
+
+            function getChamp(i, callback) {
+                if(i < out.length){
+                    var query = { "id": out[i].championId };
+
+                    models.Champion.find(query, function(err, data){
+                        out[i].champion = data[0];
+                        getChamp( i + 1, callback );
+                    });
+                } else {
+                    callback();
+                }
+            }
+
+            getChamp(0, function() {
+                res.status(200).send(out);
+            });
         });
     }
 });
@@ -133,11 +149,13 @@ function updateChampionStatus(){
             query = { id: champion.id };
 
             models.Champion.update(query, {
-                rankedPlayEnabled: champion.rankedPlayEnabled,
-                botEnabled: champion.botEnabled,
-                active: champion.active,
-                freeToPlay: champion.freeToPlay,
-                botMmEnabled: champion.botMmEnabled
+                status: {
+                    rankedPlayEnabled: champion.rankedPlayEnabled,
+                    botEnabled: champion.botEnabled,
+                    active: champion.active,
+                    freeToPlay: champion.freeToPlay,
+                    botMmEnabled: champion.botMmEnabled
+                }
             },function (err, data) {
                 if (err) {
                    console.log(err);
