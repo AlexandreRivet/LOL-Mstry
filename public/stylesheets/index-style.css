@@ -93,6 +93,15 @@ input[type=text]:focus:not([readonly]) {
 	transition: background-color 0.3s linear;
 }
 
+.tabs.cmTabs,
+.tabs.cmTabs .tab{
+	height: 60px;
+}
+
+
+.tabs.cmTabs li img {
+	height: 60px;
+}
 
 
 

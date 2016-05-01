@@ -79,7 +79,7 @@ function addChampionMastery(champion) {
 			
 			for (var i = MAX_LEVEL; i > currentLevel; --i) {
 			
-				$('#championMasteries_tab').append('<li class="tab col s3 disabled"><a href="#cmTab_' + i + '">Mastery ' + i + '</a></li>');
+				$('#championMasteries_tab').append('<li class="tab col s3 disabled"><a href="#cmTab_' + i + '"><img src="/images/mastery-' + i +'.png" /></a></li>');
 			
 			}
 			
@@ -88,7 +88,7 @@ function addChampionMastery(champion) {
 			// We complete for missing levels
 			for (var i = LAST_LEVEL - 1; i > currentLevel; --i) {
 		
-				$('#championMasteries_tab').append('<li class="tab col s3 disabled"><a href="#cmTab_' + i + '">Mastery ' + i + '</a></li>');
+				$('#championMasteries_tab').append('<li class="tab col s3 disabled"><a href="#cmTab_' + i + '"><img src="/images/mastery-' + i +'.png" /></a></li>');
 			
 			}
 			
@@ -99,12 +99,12 @@ function addChampionMastery(champion) {
 		// We add new level
 		if (!FIRST_ACTIVE) {
 		
-			$('#championMasteries_tab').append('<li class="tab col s3"><a href="#cmTab_' + currentLevel + '" class="active">Mastery ' + currentLevel + '</a></li>');
+			$('#championMasteries_tab').append('<li class="tab col s3"><a href="#cmTab_' + currentLevel + '" class="active"><img src="/images/mastery-' + currentLevel +'.png" /></a></li>');
 			FIRST_ACTIVE = true;
 			
 		} else {
 			
-			$('#championMasteries_tab').append('<li class="tab col s3"><a href="#cmTab_' + currentLevel + '">Mastery ' + currentLevel + '</a></li>');
+			$('#championMasteries_tab').append('<li class="tab col s3"><a href="#cmTab_' + currentLevel + '"><img src="/images/mastery-' + currentLevel +'.png" /></a></li>');
 			
 		}
 		
