@@ -55,3 +55,19 @@ input[type=text]:focus:not([readonly]) {
 		margin-bottom: 0px;
 	}
 }
+
+.collapsible-header {
+	font-family: 'Oswald', sans-serif;
+	text-transform: uppercase;
+}
+
+
+
+
+
+
+
+
+
+
+

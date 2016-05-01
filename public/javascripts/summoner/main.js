@@ -112,11 +112,30 @@ function addChampionMastery(champion) {
 		$('#championMasteries_container').append('<div id="cmTab_' + currentLevel + '" class="col s12"><ul id="cmExpendable' + currentLevel + '" class="collapsible col s10 offset-s1" data-collapsible="expandable"></ul></div>');
 		
 	}
+
+	var splash_url = '/images/champions/' + champion.champion.key + '_Splash_Centered_0.jpg';
 	
 	var str = '<li>';
 
-	str += '<div class="collapsible-header"><i class="material-icons">filter_drama</i>' + champion.championId + ' - ' + champion.championPoints + ' - ' + (checkVariable(champion.highestGrade) ? champion.highestGrade : "")  + '</div>';
-	str += '<div class = "collapsible-body"> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p></div>';
+	str += '<div class="collapsible-header white-text" style="min-height:100px;max-height:100px;line-height:inherit;background:url(' + splash_url + ');background-position:center -170px;position:relative;">';
+	str += 		'<div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);">';
+	str +=			'<div style="position:absolute;bottom:5px;left:10px;text-align:left;"><p><span>' + champion.championPoints + '</span>';
+	
+	if (champion.chestGranted) {
+	
+		str += '<br><span><i class="material-icons" style="line-height:100%;">games</i> Chest granted</span>';
+		
+	}
+	
+	str += '</p></div>';
+	
+	str +=			'<div style="position:absolute;bottom:5px;right:10px;text-align:right;"><p><span style="font-size:250%;">' + champion.champion.name + '</span><br><span>' + champion.champion.title + '</span></p></div>';
+	// str += 			'<i class="material-icons">games</i>' +  + '<br>' + champion.champion.title;
+	str += 		'</div>';
+	str += '</div>';
+	str += '<div class="collapsible-body">';
+	str += 		'<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>';
+	str += '</div>';
 
 	str += '</li>';
 
