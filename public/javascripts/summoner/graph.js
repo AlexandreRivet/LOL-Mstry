@@ -14,7 +14,7 @@ function initChampionMasteryGraph()
 	{
 		var champion = SUMMONER_MASTERIES[i];
 		// var tag = => TODO: faire en fonction des vrais tags
-		var tag = TAGS[Math.floor(Math.random() * 6)];
+		var tag = champion.champion.tags[0];
 		
 		if (!checkVariable(MASTERIES_ROLES[tag]))
 			MASTERIES_ROLES[tag] = 0;
@@ -45,6 +45,7 @@ function initChampionMasteryGraph()
 			maintainAspectRatio: false,
 			scale: {
 				ticks: {
+					display: false,
 					callback: function(value) { return '' + value; },	
 				}
 			}
