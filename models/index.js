@@ -13,6 +13,7 @@ module.exports = function(mongoose) {
         'name'	            : 	String,
         'title'             :   String,
         'key'               :   String,
+        'tags'              :   [String],
         'status'            : {
             'rankedPlayEnabled': Boolean,
             'botEnabled': Boolean,
