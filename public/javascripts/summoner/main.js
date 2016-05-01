@@ -27,7 +27,7 @@ function updateInterface()
 
 function updateSummoner() {
 
-	$('#summonerInfo_loader').hide();
+	$('#summonerInfo_loader').hide();	
 	
 	// Sum of all championLevel
 	var masteriesPoint = 0;
