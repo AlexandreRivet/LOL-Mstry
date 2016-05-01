@@ -1,7 +1,3 @@
-var LAST_LEVEL = -1;
-var MAX_LEVEL = 5;
-var FIRST_ACTIVE = false;
-
 $(document).init(function () {
 
 	$('.button-collapse').sideNav();
@@ -39,6 +35,7 @@ function updateSummoner() {
 	
 	$('#summonerInfo_sumChampionLevel').html("Total: " + masteriesPoint);
 	
+	initChampionMasteryGraph();
 	initRankedGraph();
 	
 	$('#summonerInfo_container').show();

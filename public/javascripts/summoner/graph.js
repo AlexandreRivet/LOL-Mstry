@@ -1,26 +1,68 @@
-var RANKS_VALUE = {
-	BRONZE : 0,
-	SILVER : 1,
-	GOLD : 2,
-	PLATINUM : 3,
-	DIAMOND : 4,
-	MASTER : 5,
-	CHALLENGER : 6
-};
-
-var RANKS_TEXT = [
-	'Bronze',
-	'Silver',
-	'Gold',
-	'Platinum',
-	'Diamond',
-	'Master',
-	'Challenger'
+var TAGS = [
+	'Tank',
+	'Support',
+	'Marksman',
+	'Magus',
+	'Fighter',
+	'Assassin'
 ];
 
 function initChampionMasteryGraph()
 {
+	// Compute score per role
+	for (var i = 0, end = SUMMONER_MASTERIES.length; i < end; ++i)
+	{
+		var champion = SUMMONER_MASTERIES[i];
+		// var tag = => TODO: faire en fonction des vrais tags
+		var tag = TAGS[Math.floor(Math.random() * 6)];
+		
+		if (!checkVariable(MASTERIES_ROLES[tag]))
+			MASTERIES_ROLES[tag] = 0;
+		
+		MASTERIES_ROLES[tag] += champion.championPoints;
+	}
 	
+	// Find best role
+	var bestRole = {'title': null, 'score': -1};
+	for (var role in MASTERIES_ROLES)
+	{
+		if (MASTERIES_ROLES[role] > bestRole.score)
+		{
+			bestRole.title = role;
+			bestRole.score = MASTERIES_ROLES[role];
+		}
+	}
+	
+	var keys = Object.keys(MASTERIES_ROLES);
+	var values = keys.map(function (key) {return MASTERIES_ROLES[key]});
+	
+	var config = {
+		type: 'radar',
+		options: {
+			legend: {
+				display: false,
+			},
+			maintainAspectRatio: false,
+			scale: {
+				ticks: {
+					callback: function(value) { return '' + value; },	
+				}
+			}
+		},
+		data: {
+			labels: keys,
+			datasets: [{
+				data: values,
+				
+			}],
+		},
+		
+		
+	};
+		
+	var ctx = document.getElementById("rankedChart").getContext('2d');
+	var chart = new Chart(ctx, config);
+			
 }
 
 function initRankedGraph()
@@ -63,6 +105,6 @@ function initRankedGraph()
 		
 	};
 	
-	var ctx = document.getElementById("rankedChart").getContext('2d');
-	var chart = new Chart(ctx, config);
+	// var ctx = document.getElementById("rankedChart").getContext('2d');
+	// var chart = new Chart(ctx, config);
 }
