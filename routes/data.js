@@ -113,17 +113,22 @@ router.get('/ranked-stats', function(req, res, next) {
 });
 
 router.get('/update/champions-list', function(req, res, next) {
-    api.getChampionData().then(function (data) {
+    var params= {
+        champData: 'tags'
+    };
+
+    api.getChampionData(params).then(function (data) {
         data = data.data;
         var champion = null;
-
+   
         for (key in data) {
             champion = data[key];
             models.Champion.create({
                 id: champion.id,
                 key: champion.key,
                 name: champion.name,
-                title: champion.title
+                title: champion.title,
+                tags: champion.tags
             }, function (err, data) {
                 if (err) {
                     if (err.code != 11000) {
