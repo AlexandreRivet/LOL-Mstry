@@ -59,8 +59,39 @@ input[type=text]:focus:not([readonly]) {
 .collapsible-header {
 	font-family: 'Oswald', sans-serif;
 	text-transform: uppercase;
+	min-height:100px;
+	max-height:100px;
+	line-height:inherit;
+	position:relative;
 }
 
+.collapsible-header-black-mask {
+	position:absolute;
+	top:0;left:0;
+	width:100%;
+	height:100%;
+	background-color:rgba(0,0,0,0.6);
+	transition: background-color 0.3s linear;
+}
+
+.collapsible-header-left-section {
+	position:absolute;
+	bottom:5px;
+	left:10px;
+	text-align:left;
+}
+
+.collapsible-header-right-section {
+	position:absolute;
+	bottom:5px;
+	right:10px;
+	text-align:right;
+}
+
+.collapsible-header-black-mask:hover {
+	background-color: rgba(0,0,0,0.3);
+	transition: background-color 0.3s linear;
+}
 
 
 

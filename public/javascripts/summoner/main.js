@@ -117,20 +117,19 @@ function addChampionMastery(champion) {
 	
 	var str = '<li>';
 
-	str += '<div class="collapsible-header white-text" style="min-height:100px;max-height:100px;line-height:inherit;background:url(' + splash_url + ');background-position:center -170px;position:relative;">';
-	str += 		'<div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);">';
-	str +=			'<div style="position:absolute;bottom:5px;left:10px;text-align:left;"><p><span>' + champion.championPoints + '</span>';
+	str += '<div class="collapsible-header white-text" style="background:url(' + splash_url + ');background-position:center -170px;">';
+	str += 		'<div class="collapsible-header-black-mask">';
+	str +=			'<div class="collapsible-header-left-section"><p><span style="font-size: 150%">' + champion.championPoints + '</span>';
 	
 	if (champion.chestGranted) {
 	
-		str += '<br><span><i class="material-icons" style="line-height:100%;">games</i> Chest granted</span>';
+		str += '<br><span><i class="material-icons" style="line-height:100%;">games</i>Chest granted</span>';
 		
 	}
 	
 	str += '</p></div>';
 	
-	str +=			'<div style="position:absolute;bottom:5px;right:10px;text-align:right;"><p><span style="font-size:250%;">' + champion.champion.name + '</span><br><span>' + champion.champion.title + '</span></p></div>';
-	// str += 			'<i class="material-icons">games</i>' +  + '<br>' + champion.champion.title;
+	str +=			'<div class="collapsible-header-right-section"><p><span style="font-size:250%;">' + champion.champion.name + '</span><br><span>' + champion.champion.title + '</span></p></div>';
 	str += 		'</div>';
 	str += '</div>';
 	str += '<div class="collapsible-body">';
