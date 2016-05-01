@@ -13,11 +13,13 @@ module.exports = function(mongoose) {
         'name'	            : 	String,
         'title'             :   String,
         'key'               :   String,
-        'rankedPlayEnabled' :   Boolean,
-        'botEnabled'        :   Boolean,
-        'active'            :   Boolean,
-        'freeToPlay'        :   Boolean,
-        'botMmEnabled'      :   Boolean
+        'status'            : {
+            'rankedPlayEnabled': Boolean,
+            'botEnabled': Boolean,
+            'active': Boolean,
+            'freeToPlay': Boolean,
+            'botMmEnabled': Boolean
+        }
     });
     
     var models = {
