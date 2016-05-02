@@ -8,6 +8,8 @@ var express = require('express'),
 var routes = require('./routes');
 var dataRoutes = require('./routes/data.js');
 
+var cron = require('./cron');
+
 var port = process.env.PORT || 3000;
 
 var app = express();
