@@ -100,11 +100,40 @@
 								<div class="col s12">
 									<h6>{{name}}</h6>
 								</div>
-								<div id="summonerInfo_sumChampionLevel" class="col s12 m12 l6"></div>
-								<div class="col s12 m12 l6">
-									{{revisionDate}}
+								<div id="summonerInfo_sumChampionLevel" class="col s12 m12 l6">
+									<!-- Modal Trigger -->
+									<a class="waves-effect waves-light btn modal-trigger" href="#totalMasteriesPointsModal">More</a>
+									
+									<!-- Modal Structure -->
+									<div id="totalMasteriesPointsModal" class="modal">
+										<div class="modal-content">
+											<h4>Masteries points</h4>
+											<p>
+												<canvas id="masteriesPointsChart" style="width:400px;height:400px;"></canvas>
+											</p>
+										</div>
+										<div class="modal-footer">
+											<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+										</div>
+									</div>
 								</div>
-							
+								<div id="summonerInfo_bestRole" class="col s12 m12 l6">
+									<!-- Modal Trigger -->
+									<a class="waves-effect waves-light btn modal-trigger" href="#bestRoleModal">More</a>
+									
+									<!-- Modal Structure -->
+									<div id="bestRoleModal" class="modal">
+										<div class="modal-content">
+											<h4>Roles</h4>
+											<p>
+												<canvas id="rolesChart" style="width:400px;height:400px;"></canvas>
+											</p>
+										</div>
+										<div class="modal-footer">
+											<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="col s12 m12 l5" style="height:200px;">
 								<canvas id="rankedChart" style="width:100%;height:100%;"></canvas>

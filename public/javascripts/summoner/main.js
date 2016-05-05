@@ -33,12 +33,12 @@ function updateSummoner() {
 
 	}
 	
-	$('#summonerInfo_sumChampionLevel').html("Total: " + masteriesPoint);
-	
 	initChampionMasteryGraph();
 	initRankedGraph();
 	
+	$('.modal-trigger').leanModal();
 	$('#summonerInfo_container').show();
+	
 	
 }
 

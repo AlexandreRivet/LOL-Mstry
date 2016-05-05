@@ -23,3 +23,4 @@ var RANKS_TEXT = [
 ];
 
 var MASTERIES_ROLES = {};
+var MASTERIES_POINTS = {};

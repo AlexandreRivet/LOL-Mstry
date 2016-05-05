@@ -17,7 +17,7 @@ var api = new riot({
 });
 
 var rule = new schedule.RecurrenceRule();
-rule.second = 20;
+rule.hour = 0;
 
 var start = null;
 
