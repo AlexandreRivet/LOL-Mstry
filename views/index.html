@@ -14,7 +14,7 @@
 
 	<div class="row center valign-wrapper" style="height:100vh; margin-bottom: 0px;">
 		<div class="container">
-			<div class="col s12 m8 offset-m2 l8 offset-l2">
+			<div class="col s12 m12 l8 offset-l2">
 				<div class="col s12">
 					<div class="col s12 m12 l12">
 						<img src="/images/logo_text.png" class="container center" style="max-width:300px; height:auto;">
@@ -24,19 +24,41 @@
 					<div class="input-field col s12">
 						<input placeholder="Summoner Name" id="summonerName_input" type="text" class="validate" required>
 					</div>
-					<div class="col s12">
+					<div class="col s12 large-server-selection">
 						<ul class="tabs">
-							<li class="tab col s1 "><a href="#test1">BR</a></li>
-							<li class="tab col s1"><a href="#test2">EUNE</a></li>
-							<li class="tab col s1"><a class="active" href="#test3">EUW</a></li>
-							<li class="tab col s1"><a href="#test4">LAN</a></li>
-							<li class="tab col s1"><a href="#test4">LAS</a></li>
-							<li class="tab col s1"><a href="#test4">NA</a></li>
-							<li class="tab col s1"><a href="#test4">OCE</a></li>
-							<li class="tab col s1"><a href="#test4">RU</a></li>
-							<li class="tab col s1"><a href="#test4">TR</a></li>
+							<li class="tab col s1 "><a href="#BR">BR</a></li>
+							<li class="tab col s1"><a href="#EUNE">EUNE</a></li>
+							<li class="tab col s1"><a class="active" href="#EUW">EUW</a></li>
+							<li class="tab col s1"><a href="#JP">JP</a></li>
+							<li class="tab col s1"><a href="#KR">KR</a></li>
+							<li class="tab col s1"><a href="#LAN">LAN</a></li>
+							<li class="tab col s1"><a href="#LAS">LAS</a></li>
+							<li class="tab col s1"><a href="#NA">NA</a></li>
+							<li class="tab col s1"><a href="#OCE">OCE</a></li>
+							<li class="tab col s1"><a href="#RU">RU</a></li>
+							<li class="tab col s1"><a href="#TR">TR</a></li>
 						</ul>
 					</div>
+
+					<div class="col s12 small-server-selection">
+						<div class="input-field col s12">
+							<select>
+								<option value="" disabled selected>Choose your server</option>
+								<option value="BR">BR</option>
+								<option value="EUNE">EUNE</option>
+								<option value="EUW">EUW</option>
+								<option value="JP">JP</option>
+								<option value="KR">KR</option>
+								<option value="LAN">LAN</option>
+								<option value="LAS">LAS</option>
+								<option value="NA">NA</option>
+								<option value="OCE">OCE</option>
+								<option value="RU">RU</option>
+								<option value="TR">TR</option>
+							</select>
+						</div>
+					</div>
+
 					<div class="col s12" style="margin-top:10px; margin-bottom:10px;">
 						<a id="searchForSummoner" class="waves-effect waves-light btn blue-grey darken-1">GO</a>
 					</div>
