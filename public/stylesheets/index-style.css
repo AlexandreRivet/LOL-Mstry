@@ -103,7 +103,19 @@ input[type=text]:focus:not([readonly]) {
 	height: 60px;
 }
 
+.small-server-selection {
+	display: none;
+}
 
+@media only screen and (max-width: 600px) {
+	.small-server-selection {
+		display: block;
+	}
+
+	.large-server-selection {
+		display: none;
+	}
+}
 
 
 
