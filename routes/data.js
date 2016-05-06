@@ -51,23 +51,23 @@ router.get('/champion-mastery/all', function(req, res, next) {
             }
 
             var out = data;
-
-            function getChamp(i, callback) {
-                if(i < out.length){
-                    var query = { "id": out[i].championId };
-
-                    models.Champion.find(query, function(err, data){
-                        out[i].champion = data[0];
-                        getChamp( i + 1, callback );
-                    });
-                } else {
-                    callback();
-                }
-            }
-
-            getChamp(0, function() {
-                res.status(200).send(out);
-            });
+			
+			var nbChampionsQueried = 0;
+			function getChamp(index, callback) {
+				var query = { "id": out[index].championId };
+				models.Champion.find(query, function(err, data) {
+					out[index].champion = data[0];
+               		nbChampionsQueried++;
+				
+					if (nbChampionsQueried == out.length)
+						callback();
+				});
+			}
+			
+			for (var i = 0; i < out.length; i++) {		
+				getChamp(i, function() { res.status(200).send(out); } );		
+			}			
+		
         });
     }
 });
