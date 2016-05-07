@@ -19,7 +19,14 @@ var router = express.Router();
  *  Desc.: Root route (Just wanted to write something like this. Funny, isn't it ?)
  */
 router.get('/', function(req, res, next) {
-    res.render("index", {});
+
+    var query = req.query;
+
+    if(req.query.error) {
+        res.render("index", {error: query});
+    } else {
+        res.render("index", {});
+    }
 });
 
 /*
@@ -36,14 +43,15 @@ router.get('/summoner/:region/:summonerName', function(req, res, next) {
     var region = req.params.region;
 
     req.sanitizeParams('summonerName').blacklist(" ");
-    req.checkParams('summonerName', 'Length of summoner name must be between 3 and 16 characters').notEmpty().isLength(3, 16);
+    req.checkParams('summonerName', '').isLength(3, 16);
 
     req.params.region = req.params.region.toUpperCase();
-    req.checkParams('region', 'Region is invalid').notEmpty().isAlpha().isIn(all_regions);
+    req.checkParams('region', '').notEmpty().isAlpha().isIn(all_regions);
 
     var errors = req.validationErrors();
     if (errors) {
-        res.status(400).send(util.inspect(errors));
+        console.log(errors);
+        res.redirect("/?error=400&summonerName=" + summonerName + "&region=" + region );
     } else {
 
         var params = {
@@ -53,7 +61,7 @@ router.get('/summoner/:region/:summonerName', function(req, res, next) {
 
         api.getSummonersByNames(params, function (err, data) {
             if(err) {
-                res.status(err.error).send(err);
+                res.redirect("/?error=404&summonerName=" + summonerName + "&region=" + region );
                 return;
             }
 

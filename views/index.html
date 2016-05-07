@@ -24,6 +24,22 @@
 					<div class="input-field col s12">
 						<input placeholder="Summoner Name" id="summonerName_input" type="text" class="validate" required>
 					</div>
+					{% if error %}
+						<div class="col s12">
+							<div class="card white red-text" style="padding: 15px 0px">
+								{% if error.error == "400" %}
+									<b>Invalid parameters</b>
+									<br>
+									<span>Length of summoner name must be between 3 and 16 characters.</span>
+								{% elseif error.error == "404" %}
+									<b>Summoner not found</b>
+									<br>
+									<span>Summoner '{{error.summonerName}}' does not seem to exist on server '{{error.region}}'</span>
+								{% else %}
+								{% endif %}
+							</div>
+						</div>
+					{% endif %}
 					<div class="col s12 large-server-selection">
 						<ul class="tabs">
 							<li class="tab col s1 "><a href="#BR">BR</a></li>
