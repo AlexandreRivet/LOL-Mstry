@@ -118,8 +118,32 @@ input[type=text]:focus:not([readonly]) {
 	}
 }
 
+.card-summoner-info {
+	margin-top: inherit;
+	height: 150px;
+	width: 118px;
+}
 
+.card-summoner-image {
+	height: 118px;
+}
 
+.card-title-summoner-info {
+	font-family: 'Oswald', sans-serif;
+	text-transform: uppercase;
+	padding-left: 2px !important;
+	padding-bottom: 0px !important;
+	font-size: 15px !important;
+}
+
+.card-action-summoner-info {
+	padding: 5px !important;
+}
+
+.card-action-summoner-info a {	
+	margin-right: 0px !important;
+	color: #263238 !important;
+}
 
 
 

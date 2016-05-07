@@ -22,5 +22,14 @@ var RANKS_TEXT = [
 	'Challenger'
 ];
 
+var TAGS = [
+	'Tank',
+	'Support',
+	'Marksman',
+	'Mage',
+	'Fighter',
+	'Assassin'
+];
+
 var MASTERIES_ROLES = {};
 var MASTERIES_POINTS = {};

@@ -1,12 +1,3 @@
-var TAGS = [
-	'Tank',
-	'Support',
-	'Marksman',
-	'Magus',
-	'Fighter',
-	'Assassin'
-];
-
 function createRadarChart(id, keys, values)
 {
 	var config = {
@@ -67,6 +58,8 @@ function initChampionMasteryGraph()
 			bestRole.score = MASTERIES_ROLES[role];
 		}
 	}
+	
+	$('#summonerInfo_image').attr('src', '/images/roles/' + bestRole.title + '.jpg');
 	
 	var keys = Object.keys(MASTERIES_ROLES);
 	createRadarChart("rolesChart", keys, keys.map(function (key) {return MASTERIES_ROLES[key]}));
