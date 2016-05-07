@@ -64,8 +64,16 @@ router.get('/champion-mastery/all', function(req, res, next) {
 				});
 			}
 			
-			for (var i = 0; i < out.length; i++) {		
-				getChamp(i, function() { res.status(200).send(out); } );		
+			var callback = (function() {
+				res.status(200).send(out);
+			});
+		
+			if (out.length == 0) {
+				callback();	
+			} else { 
+				for (var i = 0; i < out.length; i++) {		
+					getChamp(i, callback);		
+				}
 			}			
 		
         });
@@ -108,8 +116,6 @@ router.get('/ranked-stats', function(req, res, next) {
             }
 
             var out = data;
-			
-			console.log(out);
 			
 			params = {
             	"ids": req.query.summonerId,

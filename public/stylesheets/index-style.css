@@ -122,9 +122,16 @@ input[type=text]:focus:not([readonly]) {
 	margin-top: inherit;
 	height: 150px;
 	width: 118px;
+	margin: 0 auto;
 }
 
-.card-summoner-image {
+.card-image-summoner-info,
+.card-image-summoner-img {
+	height: 118px;
+}
+
+#summonerInfo_canvas {
+	width: 118px;
 	height: 118px;
 }
 

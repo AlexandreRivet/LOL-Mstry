@@ -46,14 +46,7 @@ function updateSummoner() {
 
 	$('#summonerInfo_loader').hide();	
 	
-	// Sum of all championLevel
-	var masteriesPoint = 0;
-	for (var i = 0; i < SUMMONER_MASTERIES.length; ++i) {
-
-		masteriesPoint += SUMMONER_MASTERIES[i].championLevel;
-
-	}
-	
+	initChampionMasteryPoints();
 	initChampionMasteryGraph();
 	
 	$('.modal-trigger').leanModal();

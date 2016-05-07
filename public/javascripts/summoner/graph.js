@@ -68,46 +68,51 @@ function initChampionMasteryGraph()
 			
 }
 
-function initRankedGraph()
+
+function initChampionMasteryPoints()
 {
-	var config = {
-		type: 'line',
-		options: {
-			legend: {
-				display: false,
-			},
-			maintainAspectRatio: false,
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true,
-						max: RANKS_VALUE.CHALLENGER,
-						userCallback: function(value) { return RANKS_TEXT[value]; },
-					},
-				}],
-			},
-			elements: {
-				point: {
-					radius: 5,	
-				}
-			},
-			showLines: false,
-		},
-		data: {
-			labels: ['', 'S3', 'S4', 'S5', 'S6'],
-			datasets: [{
-				data: [null, RANKS_VALUE.GOLD, RANKS_VALUE.PLATINUM, RANKS_VALUE.PLATINUM, RANKS_VALUE.PLATINUM],
-				fill: false,
-				pointBackgroundColor: '#ff9800',
-				pointBorderColor: '#871515',
-				pointBorderWidth: 2,
-			}],
-			
-		},
-		
-		
-	};
+	var nbMasteriesPointsMax = 130 * 5;
 	
-	var ctx = document.getElementById("rankedChart").getContext('2d');
-	var chart = new Chart(ctx, config);
+	var masteriesPoints = 0;
+	for (var i = 0; i < SUMMONER_MASTERIES.length; ++i) {
+
+		masteriesPoints += SUMMONER_MASTERIES[i].championLevel;
+
+	}
+	
+	var percent = masteriesPoints / nbMasteriesPointsMax;
+	
+	// Draw
+	var ctx = document.getElementById('summonerInfo_canvas').getContext('2d');
+	
+	// Background
+	ctx.clearRect(0, 0, 118, 118);
+	ctx.fillStyle = '#263238';
+	ctx.fillRect(0, 0, 118, 118);
+	
+	// Arc
+	ctx.fillStyle = '#607d8b';
+	ctx.beginPath();
+	ctx.arc(59, 85, 50, -Math.PI, 0);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.fillStyle = '#fe9700';
+	ctx.beginPath();
+	ctx.arc(59, 85, 50, -Math.PI, -Math.PI + (Math.PI * percent));
+	ctx.lineTo(59, 85);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.fillStyle = '#263238';
+	ctx.beginPath();
+	ctx.arc(59, 85, 25, -Math.PI, 0);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.fillStyle = '#ffffff';
+	ctx.font = '25px Owsald';
+	var width = ctx.measureText(masteriesPoints).width;
+	ctx.fillText(masteriesPoints, 59 - width / 2, 25);
+	
 }
