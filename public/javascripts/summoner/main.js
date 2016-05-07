@@ -11,7 +11,7 @@ $(document).init(function () {
 
 	// launch requests
 	championMasteryRequest.execute(updateInterface);
-	rankedRequest.execute();
+	rankedRequest.execute(updateRankedStats);
 });
 
 function updateInterface()
@@ -20,6 +20,27 @@ function updateInterface()
 	updateMasteries();
 	
 }
+
+function updateRankedStats()
+{
+	// Update ranked icon
+	var divisions = ['I', 'II', 'III', 'IV', 'V'];
+	var leagues = SUMMONER_RANKED.leagues;
+	for (var i = 0, leaguesLen = leagues.length; i < leaguesLen; i++)
+	{
+		var league = leagues[i];
+		var queue = league.queue;
+		if (queue == "RANKED_SOLO_5x5") {
+			var tier = league.tier;
+			var entries = league.entries[0];
+			var division = entries.division;
+			var finalDivision = '/images/medals/' + tier.toLowerCase() + '_' + (divisions.indexOf(division) + 1) + '.png';
+			$('#summonerInfo_rankImg').attr('src', finalDivision);
+			break;
+		}
+	}
+}
+
 
 function updateSummoner() {
 
@@ -34,7 +55,6 @@ function updateSummoner() {
 	}
 	
 	initChampionMasteryGraph();
-	initRankedGraph();
 	
 	$('.modal-trigger').leanModal();
 	$('#summonerInfo_container').show();

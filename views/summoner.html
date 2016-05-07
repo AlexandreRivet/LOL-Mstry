@@ -89,18 +89,23 @@
 					</div>
 					<div id="summonerInfo_container" class="row" style="margin-bottom:0px; display:none;">
 						<div class="col s10 offset-s1">
-							<div class="col s12 m5 l2" id="summonerIcon_col">
-								<div style="position:relative;width:120px;height:120px;left:50%;margin-left:-60px;">
+							<div class="col s12 m5 l3" id="summonerIcon_col">
+								<div style="position:relative;width:150px;height:150px;left:50%;margin-left:-75px;">
 									<img src="http://ddragon.leagueoflegends.com/cdn/6.9.1/img/profileicon/{{profileIconId}}.png" style="position:relative;width:100%;height:100%;">
 									<div id="triangle_level" style="position:absolute;bottom:0px;right:0px;width:0px;height:0px;border-style:solid;border-width:0 0 40px 40px; border-color: transparent transparent #263238 transparent;"></div>
 									<span class="white-text" style="position:absolute;bottom:0px;right:5px;">{{summonerLevel}}</span>
 								</div>
 							</div>
-							<div class="col s12 m7 l5" style="margin-bottom:5px;">
-								<div class="col s12">
-									<h6>{{name}}</h6>
+							<div class="col s12 m7 l3" id="summonerInfo_nameAndRank">
+								<div class="col s12" id="summonerInfo_name">
+									<span style="font-weight:600;font-size:1.1rem;">{{name}}</span>
 								</div>
-								<div id="summonerInfo_sumChampionLevel" class="col s12 m12 l6">
+								<div class="col s12" id="summonerInfo_rank">
+									<img id="summonerInfo_rankImg" src="" height="126">
+								</div>
+							</div>
+							<div class="col s12 m12 l6" id="summonerInfo_masteries">
+								<div class="col s12 m6 l6" id="summonerInfo_sumChampionLevel">
 									<!-- Modal Trigger -->
 									<a class="waves-effect waves-light btn modal-trigger" href="#totalMasteriesPointsModal">More</a>
 									
@@ -117,7 +122,7 @@
 										</div>
 									</div>
 								</div>
-								<div id="summonerInfo_bestRole" class="col s12 m12 l6">
+								<div class="col s12 m6 l6" id="summonerInfo_bestRole">
 									<!-- Modal Trigger -->
 									<a class="waves-effect waves-light btn modal-trigger" href="#bestRoleModal">More</a>
 									
@@ -134,9 +139,6 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col s12 m12 l5" style="height:200px;">
-								<canvas id="rankedChart" style="width:100%;height:100%;"></canvas>
 							</div>
 						</div>
 					</div>

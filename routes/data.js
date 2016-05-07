@@ -100,6 +100,7 @@ router.get('/ranked-stats', function(req, res, next) {
             "region": req.query.region
         };
 
+		// Get champions stats
         api.getRankedStatsBySummonerId(params, function (err, data) {
             if (err) {
                 res.status(err.error).send(err);
@@ -107,7 +108,26 @@ router.get('/ranked-stats', function(req, res, next) {
             }
 
             var out = data;
-            res.status(200).send(out);
+			
+			console.log(out);
+			
+			params = {
+            	"ids": req.query.summonerId,
+            	"region": req.query.region
+			};
+			
+			// Get league
+			api.getLeagueEntryBySummonerIds(params, function(err, data) {
+				if (err) {
+                	res.status(err.error).send(err);
+                	return;
+            	}
+				
+				out.leagues = data[req.query.summonerId];
+				res.status(200).send(out);
+				
+			});
+            
         });
     }
 });
