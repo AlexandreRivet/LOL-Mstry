@@ -12,61 +12,73 @@
 </head>
 
 <body class="blue-grey darken-4">
-
-	<ul id="server_dd_full" class="dropdown-content blue-grey-text text-darken-3">
-		<li><a href="#!">BR</a></li>
-		<li><a href="#!">EUNE</a></li>
-		<li><a href="#!">EUW</a></li>
-		<li><a href="#!">JP</a></li>
-		<li><a href="#!">KR</a></li>
-		<li><a href="#!">LAN</a></li>
-		<li><a href="#!">LAS</a></li>
-		<li><a href="#!">NA</a></li>
-		<li><a href="#!">OCE</a></li>
-		<li><a href="#!">RU</a></li>
-		<li><a href="#!">TR</a></li>
-	</ul>
-	<ul id="server_dd_mobile" class="dropdown-content">
-		<li><a href="#!">BR</a></li>
-		<li><a href="#!">EUNE</a></li>
-		<li><a href="#!">EUW</a></li>
-		<li><a href="#!">JP</a></li>
-		<li><a href="#!">KR</a></li>
-		<li><a href="#!">LAN</a></li>
-		<li><a href="#!">LAS</a></li>
-		<li><a href="#!">NA</a></li>
-		<li><a href="#!">OCE</a></li>
-		<li><a href="#!">RU</a></li>
-		<li><a href="#!">TR</a></li>
-	</ul>
+	
 	<nav class="blue-grey darken-1">
 		<div class="nav-wrapper container">
 			<a href="/" class="brand-logo"><img src="/images/logo_text.png" class="container center" style="height:85px; width:auto;"></a>
 			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-			<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<ul class="right hide-on-med-and-down">
 				<li>
-					<form>
-						<div class="input-field">
-							<input id="search" type="search" required placeholder="{{name}}">
+					<form class="search_summoner">
+						<div class="input-field summoner-input-navbar summoner-input-navbar-desktop">
+							<input id="search" type="search" class="summoner-input" required placeholder="{{name}}">
 							<label for="search"><i class="material-icons">search</i></label>
 							<i class="material-icons">close</i>
 						</div>
 					</form>
 				</li>
-				<li><a class="dropdown-button" href="#!" data-activates="server_dd_full">Servers<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li>
+					<form>
+						<div class="input-field server-selection-navbar server-selection-navbar-desktop">
+							<select>
+							  	<option class="server-selection-none" value="" disabled>Choose your server</option>
+							  	<option class="server-selection-br" value="BR">BR</option>
+								<option class="server-selection-eune" value="EUNE">EUNE</option>
+								<option class="server-selection-euw" value="EUW">EUW</option>
+								<option class="server-selection-jp" value="JP">JP</option>
+								<option class="server-selection-kr" value="KR">KR</option>
+								<option class="server-selection-lan" value="LAN">LAN</option>
+								<option class="server-selection-las" value="LAS">LAS</option>
+								<option class="server-selection-na" value="NA">NA</option>
+								<option class="server-selection-oce" value="OCE">OCE</option>
+								<option class="server-selection-ru" value="RU">RU</option>
+								<option class="server-selection-tr" value="TR">TR</option>
+    						</select>
+						</div>
+					</form>
+				</li>
 				<li><a href="#">About</a></li>
 			</ul>
 			<ul class="side-nav blue-grey lighten-4" id="mobile-demo">
 				<li>
-					<form>
-						<div class="input-field">
-							<input id="search" type="search" required placeholder="{{name}}">
-							<label for=" search "><i class="material-icons ">search</i></label>
+					<form class="search_summoner">
+						<div class="input-field summoner-input-navbar">
+							<input id="search" type="search" class="summoner-input" required placeholder="{{name}}">
+							<label for="search"><i class="material-icons ">search</i></label>
 							<i class="material-icons ">close</i>
 						</div>
 					</form>
 				</li>
-				<li><a class="dropdown-button" href="#!" data-activates="server_dd_mobile">Servers<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li>
+					<form>
+						<div class="input-field server-selection-navbar">
+							<select>
+							  	<option class="server-selection-none" value="" disabled>Choose your server</option>
+							  	<option class="server-selection-br" value="BR">BR</option>
+								<option class="server-selection-eune" value="EUNE">EUNE</option>
+								<option class="server-selection-euw" value="EUW">EUW</option>
+								<option class="server-selection-jp" value="JP">JP</option>
+								<option class="server-selection-kr" value="KR">KR</option>
+								<option class="server-selection-lan" value="LAN">LAN</option>
+								<option class="server-selection-las" value="LAS">LAS</option>
+								<option class="server-selection-na" value="NA">NA</option>
+								<option class="server-selection-oce" value="OCE">OCE</option>
+								<option class="server-selection-ru" value="RU">RU</option>
+								<option class="server-selection-tr" value="TR">TR</option>
+    						</select>
+						</div>
+					</form>
+				</li>
 				<li><a href="# ">About</a></li>
 			</ul>
 		</div>
@@ -108,7 +120,7 @@
 									<span id="summonerInfo_rankInfo" style="font-size:0.7rem;"></span>
 								</div>
 								<div class="col s12" id="summonerInfo_rank" style="height:100px;">
-									<img id="summonerInfo_rankImg" src="" style="height:100%;">
+									<img id="summonerInfo_rankImg" src="/images/medals/default.png" style="height:100%;">
 								</div>
 							</div>
 							<div class="col s12 m12 l6" id="summonerInfo_masteries">

@@ -10,6 +10,23 @@ body {
 	background: url('../images/fake-brick.png');
 }
 
+.server-selection-navbar .caret {
+	line-height: 10px;
+}
+
+.server-selection-navbar-desktop {
+	padding-top: 9px !important;
+	width: 200px;
+}
+
+.summoner-input-navbar-desktop {
+	padding-right: 10px;
+}
+
+.summoner-input-navbar {
+	height: 64px;
+}
+
 .tabs {
 	overflow-x: hidden;
 }
@@ -191,5 +208,21 @@ input[type=text]:focus:not([readonly]) {
 }
 
 .collapsible-body {
-    margin-bottom: 50px;
+    padding-bottom: 25px;
+}
+
+.ranked-stats-green {
+	color: #27ae60;
+}
+
+.ranked-stats-red {
+	color: #c0392b;
+}
+
+.ranked-stats-gold {
+	color: #f39c12;
+}
+
+.ranked-stats-blue {
+	color: #2980b9;
 }
