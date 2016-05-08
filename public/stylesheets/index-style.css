@@ -167,3 +167,29 @@ input[type=text]:focus:not([readonly]) {
 .ranked-stat-value-right {
 	text-align: right;
 }
+
+.highest-grade,
+.level-up-points{
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.ranked-stats-header,
+.ranked-stats-games,
+.ranked-stats-kda{
+    margin-bottom: 20px;
+}
+
+.ranked-stats-won,
+.ranked-stats-lost,
+.ranked-stats-ratio,
+.ranked-stats-kills,
+.ranked-stats-deaths,
+.ranked-stats-assists  {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.collapsible-body {
+    margin-bottom: 50px;
+}

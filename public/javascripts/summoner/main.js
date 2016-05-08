@@ -161,14 +161,16 @@ function addChampionMastery(champion) {
 	str += '</div>';
 	
 	str += '<div class="collapsible-body">';
-	str += '<div class="col s6">';
-	str += 		'<div class="col s12">' + (checkVariable(champion.highestGrade) ? champion.highestGrade : '--') + '</div>';
-	str += 		'<div class="col s12 no-padding">Highest Grade</div>';
-	str += '</div>';
-	str += '<div class="col s6">';
-	str += 		'<div class="col s12">' + (( !checkVariable(champion.championPointsUntilNextLevel) || champion.championPointsUntilNextLevel == 0) ? '--' : champion.championPointsUntilNextLevel) + '</div>';
-	str += 		'<div class="col s12 no-padding">Points until next level</div>';
-	str += '</div>';
+    str +=      '<div class="col s12 ranked-stats-header">';
+	str +=          '<div class="col s6">';
+	str += 		        '<div class="col s12"><span class="highest-grade">' + (checkVariable(champion.highestGrade) ? champion.highestGrade : '--') + '</span></div>';
+	str += 		        '<div class="col s12 no-padding">Highest Grade</div>';
+	str +=          '</div>';
+	str +=          '<div class="col s6">';
+	str += 		        '<div class="col s12"><span class="level-up-points">' + (( !checkVariable(champion.championPointsUntilNextLevel) || champion.championPointsUntilNextLevel == 0) ? '--' : champion.championPointsUntilNextLevel) + '</span></div>';
+	str += 		        '<div class="col s12 no-padding">Points until next level</div>';
+	str +=          '</div>';
+    str +=      '</div><hr>';
 	
 	if (stats == null) {
 	
@@ -179,7 +181,7 @@ function addChampionMastery(champion) {
 	} else {
 		
 		str += '<div class="col s12">';
-		str += 		'Ranked stats';
+		str += 		'<h4>Ranked stats</h4>';
 		str += '</div>';
 		
 		var totalPlayed = stats.totalSessionsPlayed;
@@ -188,25 +190,25 @@ function addChampionMastery(champion) {
 		var winrate = won / totalPlayed * 100;
 		
 		// Won / Lost / Winrate
-		str += '<div class="col s12 m12 l8 offset-l2">';
-		str += 		'<div class="col s12 m4 l4 no-padding">Won: ' + won + '</div>';
-		str += 		'<div class="col s12 m4 l4 no-padding">Lost: ' + lost + '</div>';
-		str += 		'<div class="col s12 m4 l4 no-padding">Win Ratio: ' + winrate.toFixed(1) + '%</div>';
+		str += '<div class="col s12 m12 l8 offset-l2 ranked-stats-games">';
+		str += 		'<div class="col s12 m4 l4 no-padding"><span class="ranked-stats-won">' + won + '</span><br>Won</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding"><span class="ranked-stats-lost">' + lost + '</span><br>Lost</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding"><span class="ranked-stats-ratio">' + winrate.toFixed(1) + '%</span><br>Win ratio</div>';
 		str += '</div>';
 		
 		// Title
 		str += '<div class="col s12">';
-		str += 		'Per game averages';
+		str += 		'<h5>Per game averages</h5>';
 		str += '</div>';
 		
 		// KDA
 		var killAvg = stats.totalChampionKills / totalPlayed;
 		var deathAvg = stats.totalDeathsPerSession / totalPlayed;
 		var assistAvg = stats.totalAssists / totalPlayed;
-		str += '<div class="col s12 m12 l8 offset-l2">';
-		str += 		'<div class="col s12 m4 l4 no-padding">Kills: ' + killAvg.toFixed(1) + '</div>';
-		str += 		'<div class="col s12 m4 l4 no-padding">Deaths: ' + deathAvg.toFixed(1) + '</div>';
-		str += 		'<div class="col s12 m4 l4 no-padding">Assists: ' + assistAvg.toFixed(1) + '</div>';
+		str += '<div class="col s12 m12 l8 offset-l2 ranked-stats-kda">';
+		str += 		'<div class="col s12 m4 l4 no-padding"><span class="ranked-stats-kills">' + killAvg.toFixed(1) + '</span><br>Kills</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding"><span class="ranked-stats-deaths">' + deathAvg.toFixed(1) + '</span><br>Deaths</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding"><span class="ranked-stats-assists">' + assistAvg.toFixed(1) + '</span><br>Assists</div>';
 		str += '</div>';
 		
 		// More information
@@ -237,8 +239,8 @@ function addStatInformation(stats, key, nbPlayed, precision, titleOverride)
 	var title = titleWithoutSpace.replace(/([A-Z]+)/g, " $1").substring(1);
 	var value = element / nbPlayed;
 	
-	var str = '<div class="col s12 m6 l6">';
-	str += 		'<div class="col s9 ranked-stat-label-left no-padding">' + (checkVariable(titleOverride) ? titleOverride : title) + '</div>';
+	var str = '<div class="col s12 m6 l6 stat-info">';
+	str += 		'<div class="col s9 ranked-stat-label-left no-padding"><b>' + (checkVariable(titleOverride) ? titleOverride : title) + '</b></div>';
 	str += 		'<div class="col s3 ranked-stat-value-right no-padding">' + value.toFixed(precision) + '</div>';
 	str += '</div>';
 	
