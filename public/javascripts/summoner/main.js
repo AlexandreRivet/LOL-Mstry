@@ -10,18 +10,21 @@ $(document).init(function () {
 	rankedRequest.params.data.summonerId = SUMMONER_INFO.id;
 
 	// launch requests
-	championMasteryRequest.execute(updateInterface);
-	rankedRequest.execute(updateRankedStats);
+	rankedRequest.execute(createRankedStats);
+	championMasteryRequest.execute(createSummoner);
 });
 
-function updateInterface()
+function createSummoner()
 {
-	updateSummoner();
+	initChampionMasteryPoints();
+	initChampionMasteryGraph();
 	updateMasteries();
 	
+	LOADING_STATE["Summoner"] = 1;
+	checkLoading();
 }
 
-function updateRankedStats()
+function createRankedStats()
 {
 	// Update ranked icon
 	var divisions = ['I', 'II', 'III', 'IV', 'V'];
@@ -30,50 +33,63 @@ function updateRankedStats()
 	{
 		var league = leagues[i];
 		var queue = league.queue;
-		if (queue == "RANKED_SOLO_5x5") {
+		if (queue == "RANKED_SOLO_5x5") 
+		{
 			var tier = league.tier;
 			var entries = league.entries[0];
 			var division = entries.division;
 			var finalDivision = '/images/medals/' + tier.toLowerCase() + '_' + (divisions.indexOf(division) + 1) + '.png';
 			$('#summonerInfo_rankImg').attr('src', finalDivision);
+			
+			var rankInfo = tier.toPascalCase() + ' ' + (divisions.indexOf(division) + 1) + ' - ' + entries.wins + 'W' + ' ' + entries.losses + 'L';
+			$('#summonerInfo_rankInfo').html(rankInfo);
+			
 			break;
 		}
 	}
+	
+	LOADING_STATE["RankedStats"] = 1;
+	checkLoading();
 }
 
-
-function updateSummoner() {
-
-	$('#summonerInfo_loader').hide();	
+function checkLoading()
+{
+	var allIsLoaded = true;
+	for (var i in LOADING_STATE)
+	{
+		if (LOADING_STATE[i] == 0)
+		{
+			allIsLoaded = false;
+			break;
+		}
+	}
 	
-	initChampionMasteryPoints();
-	initChampionMasteryGraph();
-	
-	$('.modal-trigger').leanModal();
-	$('#summonerInfo_container').show();
-	
-	
+	if (allIsLoaded)
+	{
+		setTimeout(function() {
+			// First block
+			$('#summonerInfo_loader').hide();
+			$('.modal-trigger').leanModal();
+			$('#summonerInfo_container').show();
+		
+			// Second block
+			$('#championMasteries_loader').hide();
+			$('#championMasteries_container').show();
+    		$('ul.tabs').tabs();
+			$('.collapsible').collapsible({
+				accordion : false
+			});
+		}, 500);
+	}
 }
 
 function updateMasteries() {
-
-	$('#championMasteries_loader').hide();
 
 	for (var i = 0; i < SUMMONER_MASTERIES.length; ++i) {
 
 		addChampionMastery(SUMMONER_MASTERIES[i]);
 
 	}
-	
-	$('#championMasteries_container').show();
-    $('ul.tabs').tabs();
-	$('.collapsible').collapsible({
-      		accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-	});
-
-}
-
-function addTopMastery(champion) {
 
 }
 
@@ -124,6 +140,7 @@ function addChampionMastery(champion) {
 	}
 
 	var splash_url = '/images/champions/' + champion.champion.key + '_Splash_Centered_0.jpg';
+	var stats = getRankedStatChampionFromId(champion.championId);
 	
 	var str = '<li>';
 
@@ -142,12 +159,102 @@ function addChampionMastery(champion) {
 	str +=			'<div class="collapsible-header-right-section"><p><span style="font-size:250%;">' + champion.champion.name + '</span><br><span>' + champion.champion.title + '</span></p></div>';
 	str += 		'</div>';
 	str += '</div>';
+	
 	str += '<div class="collapsible-body">';
-	str += 		'<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>';
+	str += '<div class="col s6">';
+	str += 		'<div class="col s12">' + (checkVariable(champion.highestGrade) ? champion.highestGrade : '--') + '</div>';
+	str += 		'<div class="col s12 no-padding">Highest Grade</div>';
 	str += '</div>';
+	str += '<div class="col s6">';
+	str += 		'<div class="col s12">' + (( !checkVariable(champion.championPointsUntilNextLevel) || champion.championPointsUntilNextLevel == 0) ? '--' : champion.championPointsUntilNextLevel) + '</div>';
+	str += 		'<div class="col s12 no-padding">Points until next level</div>';
+	str += '</div>';
+	
+	if (stats == null) {
+	
+		str += '<div class="col s12">';
+		str += 		'No ranked stats available for this champion.';
+		str += '</div>';
+	
+	} else {
+		
+		str += '<div class="col s12">';
+		str += 		'Ranked stats';
+		str += '</div>';
+		
+		var totalPlayed = stats.totalSessionsPlayed;
+		var won = stats.totalSessionsWon;
+		var lost = stats.totalSessionsLost;
+		var winrate = won / totalPlayed * 100;
+		
+		// Won / Lost / Winrate
+		str += '<div class="col s12 m12 l8 offset-l2">';
+		str += 		'<div class="col s12 m4 l4 no-padding">Won: ' + won + '</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding">Lost: ' + lost + '</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding">Win Ratio: ' + winrate.toFixed(1) + '%</div>';
+		str += '</div>';
+		
+		// Title
+		str += '<div class="col s12">';
+		str += 		'Per game averages';
+		str += '</div>';
+		
+		// KDA
+		var killAvg = stats.totalChampionKills / totalPlayed;
+		var deathAvg = stats.totalDeathsPerSession / totalPlayed;
+		var assistAvg = stats.totalAssists / totalPlayed;
+		str += '<div class="col s12 m12 l8 offset-l2">';
+		str += 		'<div class="col s12 m4 l4 no-padding">Kills: ' + killAvg.toFixed(1) + '</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding">Deaths: ' + deathAvg.toFixed(1) + '</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding">Assists: ' + assistAvg.toFixed(1) + '</div>';
+		str += '</div>';
+		
+		// More information
+		str += addStatInformation(stats, 'totalTurretsKilled', totalPlayed, 2, "Turrets destroyed");
+		str += addStatInformation(stats, 'totalDamageDealt', totalPlayed, 0);
+		str += addStatInformation(stats, 'totalDoubleKills', totalPlayed, 2);
+		str += addStatInformation(stats, 'totalPhysicalDamageDealt', totalPlayed, 0);
+		str += addStatInformation(stats, 'totalTripleKills', totalPlayed, 2);
+		str += addStatInformation(stats, 'totalMagicDamageDealt', totalPlayed, 0);
+		str += addStatInformation(stats, 'totalQuadraKills', totalPlayed, 2);
+		str += addStatInformation(stats, 'totalMinionKills', totalPlayed, 2, "Minions Killed");
+		str += addStatInformation(stats, 'totalPentaKills', totalPlayed, 2);
+		str += addStatInformation(stats, 'totalGoldEarned', totalPlayed, 0);
+		
+	}
 
+	str += '</div>';
 	str += '</li>';
-
+	
 	$('#cmExpendable' + currentLevel).append(str);
 
+}
+
+function addStatInformation(stats, key, nbPlayed, precision, titleOverride)
+{
+	var element = stats[key];
+	var titleWithoutSpace = key.substring(5);
+	var title = titleWithoutSpace.replace(/([A-Z]+)/g, " $1").substring(1);
+	var value = element / nbPlayed;
+	
+	var str = '<div class="col s12 m6 l6">';
+	str += 		'<div class="col s9 ranked-stat-label-left no-padding">' + (checkVariable(titleOverride) ? titleOverride : title) + '</div>';
+	str += 		'<div class="col s3 ranked-stat-value-right no-padding">' + value.toFixed(precision) + '</div>';
+	str += '</div>';
+	
+	return str;
+}
+
+function getRankedStatChampionFromId(id)
+{
+	var champions = SUMMONER_RANKED.champions;
+	for (var i = 0, championsLen = champions.length; i < championsLen; i++)
+	{
+		if (champions[i].id == id)
+		{
+			return champions[i].stats;
+		}
+	}
+	
+	return null;
 }

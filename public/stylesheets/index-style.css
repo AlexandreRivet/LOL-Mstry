@@ -152,6 +152,18 @@ input[type=text]:focus:not([readonly]) {
 	color: #263238 !important;
 }
 
+.ranked-stat-label-right {
+	text-align: right;
+}
 
+.ranked-stat-label-left {
+	text-align: left;
+}
 
+.ranked-stat-value-left {
+	text-align: left;
+}
 
+.ranked-stat-value-right {
+	text-align: right;
+}

@@ -33,3 +33,8 @@ var TAGS = [
 
 var MASTERIES_ROLES = {};
 var MASTERIES_POINTS = {};
+
+var LOADING_STATE = {
+	'Summoner': 0,
+	'RankedStats': 0
+};

@@ -17,6 +17,8 @@
 		<li><a href="#!">BR</a></li>
 		<li><a href="#!">EUNE</a></li>
 		<li><a href="#!">EUW</a></li>
+		<li><a href="#!">JP</a></li>
+		<li><a href="#!">KR</a></li>
 		<li><a href="#!">LAN</a></li>
 		<li><a href="#!">LAS</a></li>
 		<li><a href="#!">NA</a></li>
@@ -28,6 +30,8 @@
 		<li><a href="#!">BR</a></li>
 		<li><a href="#!">EUNE</a></li>
 		<li><a href="#!">EUW</a></li>
+		<li><a href="#!">JP</a></li>
+		<li><a href="#!">KR</a></li>
 		<li><a href="#!">LAN</a></li>
 		<li><a href="#!">LAS</a></li>
 		<li><a href="#!">NA</a></li>
@@ -100,8 +104,11 @@
 								<div class="col s12" id="summonerInfo_name">
 									<span style="font-weight:600;font-size:1.1rem;">{{name}}</span>
 								</div>
-								<div class="col s12" id="summonerInfo_rank">
-									<img id="summonerInfo_rankImg" src="" height="126">
+								<div class="col s12">
+									<span id="summonerInfo_rankInfo" style="font-size:0.7rem;"></span>
+								</div>
+								<div class="col s12" id="summonerInfo_rank" style="height:100px;">
+									<img id="summonerInfo_rankImg" src="" style="height:100%;">
 								</div>
 							</div>
 							<div class="col s12 m12 l6" id="summonerInfo_masteries">
@@ -109,7 +116,7 @@
 									<div class="card-summoner-info card">
 										<div class="card-image card-image-summoner-info">
 											<canvas id="summonerInfo_canvas" class="card-summoner-image" width="118" height="118"></canvas>
-											<span class="card-title-summoner-info card-title">Points</span>
+											<span class="card-title-summoner-info card-title">Score</span>
 										</div>
 										<div class="card-action-summoner-info card-action">
 											<!-- Modal Trigger -->
@@ -120,7 +127,7 @@
 									<!-- Modal Structure -->
 									<div id="totalMasteriesPointsModal" class="modal">
 										<div class="modal-content">
-											<h4>Masteries points</h4>
+											<h4>Mastery Score</h4>
 											<p>
 												<canvas id="masteriesPointsChart" style="width:400px;height:400px;"></canvas>
 											</p>
@@ -159,7 +166,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="topChampionMasteries" class="card white section">
+				<div id="topChampionMasteries" class="card white section" style="display:none;">
 					<div id="topChampionMasteries_loader" class="preloader-wrapper big active">
 						<div class="spinner-layer spinner-blue-only">
 							<div class="circle-clipper left">
@@ -170,6 +177,57 @@
 							</div>
 							<div class="circle-clipper right">
 								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+					<div id="topChampionMasteries_container" class="row">
+						<div class="col s10 offset-s1">
+							<div class="col l4">
+								<div class="card">
+									<div class="card-image waves-effect waves-block waves-light">
+									  	<img class="activator" src="/images/champions/Thresh_Splash_Centered_0.jpg">
+										<div class="card-image-top-title">
+											<span style="font-size:250%;">Thresh</span>
+											<br>
+											<span>The chain warden</span>
+										</div>
+									</div>
+									<div class="card-content">
+									  	<span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+									</div>
+									<div class="card-reveal">
+									  	<span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+									  	<p>Here is some more information about this product that is only revealed once clicked on.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col l4">
+								<div class="card">
+									<div class="card-image waves-effect waves-block waves-light">
+									  	<img class="activator" src="/images/champions/Lucian_Splash_Centered_0.jpg">
+									</div>
+									<div class="card-content">
+									  	<span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+									</div>
+									<div class="card-reveal">
+									  	<span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+									  	<p>Here is some more information about this product that is only revealed once clicked on.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col l4">
+								<div class="card">
+									<div class="card-image waves-effect waves-block waves-light">
+									  	<img class="activator" src="/images/champions/Jinx_Splash_Centered_0.jpg">
+									</div>
+									<div class="card-content">
+									  	<span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+									</div>
+									<div class="card-reveal">
+									  	<span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+									  	<p>Here is some more information about this product that is only revealed once clicked on.</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -218,7 +276,7 @@
 	</script>
 
 	<script type="text/javascript " src="/javascripts/dist/jquery.min.js "></script>
-	<script type="text/javascript " src="/javascripts/dist/materialize.min.js "></script>
+	<script type="text/javascript " src="/javascripts/dist/materialize.js "></script>
 	<script type="text/javascript " src="/javascripts/dist/chart.bundle.min.js"></script>
 
 	<script type="text/javascript " src="/javascripts/common/tools.js "></script>

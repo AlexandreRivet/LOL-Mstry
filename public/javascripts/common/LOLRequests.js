@@ -37,8 +37,8 @@ var championMasteryRequest = new RequestObject({
 	},
 	fail: function (response) {
 
-		console.log(response);
-
+		LOADING_STATE["Summoner"] = 2;
+		
 	},
 	data: {
 		'region': REGION,
@@ -57,7 +57,7 @@ var rankedRequest = new RequestObject({
 	},
 	fail: function (response) {
 
-		console.log(response);
+		LOADING_STATE["RankedStats"] = 2;
 
 	},
 	data: {
