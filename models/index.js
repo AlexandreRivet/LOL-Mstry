@@ -22,9 +22,17 @@ module.exports = function(mongoose) {
             'botMmEnabled': Boolean
         }
     });
+	
+	var score = new Schema({
+		'id'				:	Number,
+		'summonerName'		:	String,
+		'region'			:	String,
+		'score'				:	Number
+	});
     
     var models = {
         Champion : db.model('Champion', champion, 'champions'),
+		Score : db.model('Score', score, 'scores')
     };
 
     return models;
