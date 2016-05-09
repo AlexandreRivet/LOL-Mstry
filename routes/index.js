@@ -53,8 +53,7 @@ router.get('/summoner/:region/:summonerName', function(req, res, next) {
         console.log(errors);
         res.redirect("/?error=400&summonerName=" + summonerName + "&region=" + region );
     } else {
-
-		summonerName = decodeURIComponent(summonerName);
+		summonerName = encodeURIComponent(summonerName);
 		
         var params = {
             "names": summonerName,
