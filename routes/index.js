@@ -73,4 +73,15 @@ router.get('/summoner/:region/:summonerName', function(req, res, next) {
     }
 });
 
+
+/*
+ * Method: GET
+ *
+ *
+ *
+ */
+router.get('/leaderboard', function(req, res, next){
+    res.render("leaderboard", {});
+});
+
 module.exports = router;
