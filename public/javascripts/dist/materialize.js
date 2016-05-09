@@ -377,7 +377,7 @@ if ($) {
           object.siblings('.collapsible-body').stop(true,false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() { /*$(this).css('height', '');*/ }});
         }
         else{
-          object.siblings('.collapsible-body').stop(true,false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() { /*$(this).css('height', '');*/ }});
+          object.siblings('.collapsible-body').stop(true,false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() { $(this).css('height', ''); }});
         }
       }
 

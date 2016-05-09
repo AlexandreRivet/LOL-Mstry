@@ -23,6 +23,8 @@ var start = null;
 
 var j = schedule.scheduleJob(rule, function(){
     
+	return;
+	
 	start = new Date().getTime();
 	
 	intervalId = setInterval(checkEnd, 5000);

@@ -1,7 +1,39 @@
 $(document).init(function () {
 
 	$('.button-collapse').sideNav();
+	$("select option[value='" + SUMMONER_INFO.region + "']").attr("selected", true);
+	$('select').material_select();
+	$('.summoner-input').focus(function() {
+		
+		$(this).keydown(function(e) {
+			
+			var code = e.keyCode || e.which;
+			if (code == 13) {
+				
+				var region = $('.select-wrapper input').val();
+				var summonerName = $(this).val();
+				
+				// Check for error case (redirect or not)
+				if (summonerName == "" || region == "")
+					return;
 
+				summonerName = encodeURIComponent(summonerName);
+
+				var finalURL = '/summoner/' + region + '/' + summonerName;
+
+				window.location.replace(finalURL);
+				
+			}
+			
+		});
+		
+	});
+	
+	$(".search_summoner").submit(function(e) { 
+    	e.preventDefault();
+    });
+								
+	
 	// Update request
 	championMasteryRequest.params.data.region = SUMMONER_INFO.region;
 	championMasteryRequest.params.data.summonerId = SUMMONER_INFO.id;
@@ -10,15 +42,14 @@ $(document).init(function () {
 	rankedRequest.params.data.summonerId = SUMMONER_INFO.id;
 
 	// launch requests
-	rankedRequest.execute(createRankedStats);
-	championMasteryRequest.execute(createSummoner);
+	rankedRequest.execute(createRankedStats, checkLoading);
+	championMasteryRequest.execute(createSummoner, checkLoading);
 });
 
 function createSummoner()
 {
 	initChampionMasteryPoints();
 	initChampionMasteryGraph();
-	updateMasteries();
 	
 	LOADING_STATE["Summoner"] = 1;
 	checkLoading();
@@ -66,6 +97,7 @@ function checkLoading()
 	
 	if (allIsLoaded)
 	{
+		updateMasteries();
 		setTimeout(function() {
 			// First block
 			$('#summonerInfo_loader').hide();
@@ -79,7 +111,7 @@ function checkLoading()
 			$('.collapsible').collapsible({
 				accordion : false
 			});
-		}, 500);
+		}, 1000);
 	}
 }
 
@@ -89,6 +121,10 @@ function updateMasteries() {
 
 		addChampionMastery(SUMMONER_MASTERIES[i]);
 
+	}
+	
+	if (!checkVariable(SUMMONER_RANKED.champions)) {
+		$('#summonerInfo_rankInfo').html('Unranked');	
 	}
 
 }
@@ -160,13 +196,13 @@ function addChampionMastery(champion) {
 	str += 		'</div>';
 	str += '</div>';
 	
-	str += '<div class="collapsible-body">';
+	str += '<div class="collapsible-body blue-grey lighten-4">';
     str +=      '<div class="col s12 ranked-stats-header">';
-	str +=          '<div class="col s6">';
+	str +=          '<div class="col s6 ranked-stats-gold">';
 	str += 		        '<div class="col s12"><span class="highest-grade">' + (checkVariable(champion.highestGrade) ? champion.highestGrade : '--') + '</span></div>';
 	str += 		        '<div class="col s12 no-padding">Highest Grade</div>';
 	str +=          '</div>';
-	str +=          '<div class="col s6">';
+	str +=          '<div class="col s6 ranked-stats-blue">';
 	str += 		        '<div class="col s12"><span class="level-up-points">' + (( !checkVariable(champion.championPointsUntilNextLevel) || champion.championPointsUntilNextLevel == 0) ? '--' : champion.championPointsUntilNextLevel) + '</span></div>';
 	str += 		        '<div class="col s12 no-padding">Points until next level</div>';
 	str +=          '</div>';
@@ -191,9 +227,9 @@ function addChampionMastery(champion) {
 		
 		// Won / Lost / Winrate
 		str += '<div class="col s12 m12 l8 offset-l2 ranked-stats-games">';
-		str += 		'<div class="col s12 m4 l4 no-padding"><span class="ranked-stats-won">' + won + '</span><br>Won</div>';
-		str += 		'<div class="col s12 m4 l4 no-padding"><span class="ranked-stats-lost">' + lost + '</span><br>Lost</div>';
-		str += 		'<div class="col s12 m4 l4 no-padding"><span class="ranked-stats-ratio">' + winrate.toFixed(1) + '%</span><br>Win ratio</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding ranked-stats-green"><span class="ranked-stats-won">' + won + '</span><br>Won</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding ranked-stats-red"><span class="ranked-stats-lost">' + lost + '</span><br>Lost</div>';
+		str += 		'<div class="col s12 m4 l4 no-padding ' + ((winrate < 50) ? 'ranked-stats-red' : ((winrate > 50) ? 'ranked-stats-green' : '') ) + '"><span class="ranked-stats-ratio">' + winrate.toFixed(1) + '%</span><br>Win ratio</div>';
 		str += '</div>';
 		
 		// Title
@@ -248,8 +284,11 @@ function addStatInformation(stats, key, nbPlayed, precision, titleOverride)
 }
 
 function getRankedStatChampionFromId(id)
-{
+{	
 	var champions = SUMMONER_RANKED.champions;
+	if (!checkVariable(champions))
+		return null;
+	
 	for (var i = 0, championsLen = champions.length; i < championsLen; i++)
 	{
 		if (champions[i].id == id)

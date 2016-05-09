@@ -59,12 +59,15 @@ function initChampionMasteryGraph()
 		}
 	}
 	
-	$('#summonerInfo_image').attr('src', '/images/roles/' + bestRole.title + '.jpg');
+	if (bestRole.title != null)
+	{
+		$('#summonerInfo_image').attr('src', '/images/roles/' + bestRole.title + '.jpg');
 	
-	var keys = Object.keys(MASTERIES_ROLES);
-	createRadarChart("rolesChart", keys, keys.map(function (key) {return MASTERIES_ROLES[key]}));
-	keys = Object.keys(MASTERIES_POINTS);
-	createRadarChart("masteriesPointsChart", keys, keys.map(function (key) {return MASTERIES_POINTS[key]}));
+		var keys = Object.keys(MASTERIES_ROLES);
+		createRadarChart("rolesChart", keys, keys.map(function (key) {return MASTERIES_ROLES[key]}));
+		keys = Object.keys(MASTERIES_POINTS);
+		createRadarChart("masteriesPointsChart", keys, keys.map(function (key) {return MASTERIES_POINTS[key]}));
+	}
 			
 }
 
