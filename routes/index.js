@@ -1,8 +1,11 @@
 var express =   require('express'),
     riot    =   require('lol-riot-api-module'),
+	mongoose    =   require('mongoose'),
     util    =   require('util');
 
 var test = require("../data-test.json");
+
+var models   =   require('../models')(mongoose);
 
 var api = new riot({
     key: test.API_KEY,
@@ -82,7 +85,23 @@ router.get('/summoner/:region/:summonerName', function(req, res, next) {
  *
  */
 router.get('/leaderboard', function(req, res, next){
-    res.render("leaderboard", {});
+	
+	res.render("leaderboard", {});
+	
 });
+
+/*
+ * Method: GET
+ *
+ *
+ *
+ */
+router.get('/about', function(req, res, next){
+	
+	res.render("about", {});
+	
+    
+});
+
 
 module.exports = router;

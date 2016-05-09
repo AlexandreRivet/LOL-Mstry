@@ -188,9 +188,9 @@ RequestObject.prototype.execute = function (callbackOnSuccess, callbackOnFail) {
 
 
 
-	var data = null;
+	var data = "";
 	if (!checkVariable(params.data))
-		data = null;
+		data = "";
 
 	else if (typeof params.data == "object") {
 

@@ -66,6 +66,25 @@ var rankedRequest = new RequestObject({
 	}
 });
 
+var leaderboardRequest = new RequestObject({
+	type: "GET",
+	dataType: "json",
+	url: "/data/leaderboard-champions",
+	done: function (response) {
+
+		LEADERBOARD_INFO = response;
+		LEADERBOARD_INFO.sort(function(a, b) {
+			if(a.champion.key < b.champion.key) return -1;
+    		if(a.champion.key > b.champion.key) return 1;
+    		return 0;
+		});
+		
+	},
+	fail: function (response) {
+
+	}
+});
+
 function loadSummoner(region, summonerName) {
 
 	summonerRequest.params.data.region = region || REGION;

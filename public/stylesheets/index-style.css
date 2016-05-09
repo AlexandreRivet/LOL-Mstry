@@ -173,7 +173,8 @@ input[type=text]:focus:not([readonly]) {
 	text-align: right;
 }
 
-.ranked-stat-label-left {
+.ranked-stat-label-left,
+.leaderboard-collection {
 	text-align: left;
 }
 

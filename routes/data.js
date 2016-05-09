@@ -57,11 +57,70 @@ router.get('/champion-mastery/all', function(req, res, next) {
 				var query = { "id": out[index].championId };
 				models.Champion.find(query, function(err, data) {
 					out[index].champion = data[0];
-               		nbChampionsQueried++;
-				
-					if (nbChampionsQueried == out.length)
-						callback();
+					
+					var query = { id: out[index].championId };
+					models.Score.find(query, function(err, data){
+						var score_data = JSON.parse(JSON.stringify(data));
+					
+						// We need update
+						if (score_data != undefined && score_data.length > 0 && out[index].championPoints > score_data[0].score)
+						{
+							var parameters = {
+								"ids": req.query.summonerId,
+								"region": req.query.region
+							};
+							api.getSummonersByIds(parameters, function (err, data) {
+            				
+								models.Score.update(query, {
+									"summonerName": data[req.query.summonerId].name,
+									"region": req.query.region,
+									"score": out[index].championPoints
+								}, {
+									upsert: true
+								}, function(err) {
+									
+								});
+								
+								nbChampionsQueried++;
+						
+								if (nbChampionsQueried == out.length)
+									callback();	
+								
+							});
+					  	} else if (score_data == undefined || score_data.length == 0) {
+							
+							var parameters = {
+								"ids": req.query.summonerId,
+								"region": req.query.region
+							};
+							api.getSummonersByIds(parameters, function (err, data) {
+            												
+								models.Score.create({
+									"id"				: out[index].championId,
+									"summonerName"		: data[req.query.summonerId].name,
+									"region"			: req.query.region,
+									"score"				: out[index].championPoints
+								}, function(err) {
+									
+								});
+								
+								nbChampionsQueried++;
+						
+								if (nbChampionsQueried == out.length)
+									callback();	
+								
+							});
+							
+						} else {
+							
+							nbChampionsQueried++;
+						
+							if (nbChampionsQueried == out.length)
+								callback();	
+						}
+            		});
 				});
+				
 			}
 			
 			var callback = (function() {
@@ -136,6 +195,47 @@ router.get('/ranked-stats', function(req, res, next) {
             
         });
     }
+});
+
+/*
+ *  Method: GET
+ *  URL: /leaderboard-champions
+ *  Desc.: Returns leaderboard
+ */
+router.get('/leaderboard-champions', function(req, res, next) {
+	
+	models.Score.find({}, function(err, data) {
+		
+		// fuck this shit, cause to mongoose
+		var out = JSON.parse(JSON.stringify(data));
+		
+		var nbChampionsQueried = 0;
+		function getChamp(index, callback) {
+			var query = { "id": out[index].id };
+			models.Champion.find(query, function(err, champData) {
+				
+				out[index].champion = champData[0];
+				nbChampionsQueried++;
+						
+				if (nbChampionsQueried == out.length)
+					callback();	
+			});
+		}
+
+		var callback = (function() {
+			res.status(200).send(out);
+		});
+
+		if (out.length == 0) {
+			callback();	
+		} else { 
+			for (var i = 0, iLen; i < out.length; i++) {
+				getChamp(i, callback);		
+			}
+		}	
+		
+	});
+	
 });
 
 router.get('/update/champions-list', function(req, res, next) {
