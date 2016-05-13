@@ -182,7 +182,7 @@ function addChampionMastery(champion) {
 
 	str += '<div class="collapsible-header white-text" style="background:url(' + splash_url + ');background-position:center -170px;">';
 	str += 		'<div class="collapsible-header-black-mask">';
-	str +=			'<div class="collapsible-header-left-section"><p><span style="font-size: 150%">' + champion.championPoints + '</span>';
+	str +=			'<div class="collapsible-header-left-section"><p><span style="font-size: 150%">' + thousandsSeparator(champion.championPoints) + '</span>';
 	
 	if (champion.chestGranted) {
 	

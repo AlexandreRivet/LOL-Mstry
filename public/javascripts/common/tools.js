@@ -14,7 +14,8 @@ function thousandsSeparator(value)
 	while (value > 1000)
 	{
 		var rest = value % 1000;
-		str = rest + ' ' + str;
+		var rest_str = ((rest < 100) ? ((rest < 10) ? '00': '0') : '') + rest;
+		str = rest_str + ' ' + str;
 		value = Math.floor(value / 1000);
 	}
 	
