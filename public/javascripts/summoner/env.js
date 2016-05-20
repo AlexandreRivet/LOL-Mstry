@@ -1,5 +1,5 @@
 var LAST_LEVEL = -1;
-var MAX_LEVEL = 5;
+var MAX_LEVEL = 7;
 var FIRST_ACTIVE = false;
 
 var RANKS_VALUE = {

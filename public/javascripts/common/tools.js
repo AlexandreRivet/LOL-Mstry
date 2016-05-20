@@ -11,7 +11,7 @@ String.prototype.toPascalCase = function()
 function thousandsSeparator(value)
 {
 	var str = "";
-	while (value > 1000)
+	while (value > 1000)   
 	{
 		var rest = value % 1000;
 		var rest_str = ((rest < 100) ? ((rest < 10) ? '00': '0') : '') + rest;
